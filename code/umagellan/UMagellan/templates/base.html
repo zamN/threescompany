@@ -4,26 +4,127 @@
 
 <html lang="en">
     <head>
-        <!-- Metadata -->
+        <!-- Page title -->
         <title>{% block title %}{% endblock %}</title>
+
+        <!-- Page charset -->
         <meta charset="UTF-8" />
+
+        <!-- Viewport size -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <!-- Bootstrap -->
+        <!-- Bootstrap stylesheets -->
         <link rel="stylesheet" href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" />
         <link rel="stylesheet" href="{% static 'lib/bootstrap/css/bootstrap-responsive.min.css' %}" />
+
+        <!-- UMagellan stylesheets -->
+        <link rel="stylesheet" href="{% static 'css/master.css' %}" />
     </head>
     <body>
-        <h1>Test content</h1>
-        {% block content %}
+        <!-- Top navbar -->
+        <div class="navbar navbar-inverse navbar-fixed-top top-navbar">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <!-- Expand button -->
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
-        {% endblock %}
+                    <!-- Brand name -->
+                    <a class="brand" href="#">Project name</a>
 
-        <!-- Scripts -->
+                    <!-- Nav links -->
+                    <div class="nav-collapse collapse">
+                        <!-- Static links -->
+                        <div class="static-links">
+                            <ul class="nav">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#about">About</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- User links -->
+                        <div class="user-links pull-right">
+                            <span class="logged-in">
+                                <!-- If user is logged in -->
+                                <ul class="nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle">Welcome, <span class="umagellan-user-name"></span> <b class="caret"></b></a>
+                                        <ul class="dropdown-menu" data-toggle="dropdown">
+                                            <li><a href="#">Account</a></li>
+                                            <li><a href="#">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </span>
+                            <span class="not-logged-in">
+                                <!-- If user is not logged in -->
+                                <ul class="nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle">Welcome, Guest <b class="caret"></b></a>
+                                        <ul class="dropdown-menu" data-toggle="dropdown">
+                                            <li><a href="#">Login</a></li>
+                                            <li><a href="#">Register</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="container-fluid main-content">
+            <div class="row-fluid">
+                <!-- Sidebar menu -->
+                <div class="span3">
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Sidebar</li>
+                                <li class="active"><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                            <li class="nav-header">Sidebar</li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                            <li class="nav-header">Sidebar</li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- View content -->
+                <div class="span9">
+                    {% block content %}
+
+                    {% endblock %}      
+                </div>
+            </div>
+        </div>
+
+        <!-- jQuery script -->
         <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+
+        <!-- Bootstrap script -->
         <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
-        {% block extra_scripts %}
-        {% endblock %}
+
+        <!-- Cookie script -->
+        <script src="{% static 'lib/cookie/jquery.cookie.js' %}"></script>
+
+        <!-- Navbar script -->
+        <script src="{% static 'js/navbar.js' %}"></script>
     </body>
 </html>
 

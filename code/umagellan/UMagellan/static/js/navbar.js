@@ -5,15 +5,9 @@ $(document).ready(function() {
 
     // Determine if user is logged in
     if($.cookie('umagellan_user') === null) {
-        // Log debug message
-        console.debug('User is not logged in');
-
         // Show appropriate div
         $('.user-links .not-logged-in').show();
     } else {
-        // Log debug message
-        console.debug('User is logged in');
-
         // Capture user from cookie
         var umagellan_user = $.cookie('umagellan_user');
 

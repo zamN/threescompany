@@ -1,15 +1,15 @@
 from django.contrib import admin
-from UMagellan.models import Class, Route, POI
+from UMagellan.models import Course, Route, Spot
 
-class ClassAdmin(admin.ModelAdmin):
+class CourseAdmin(admin.ModelAdmin):
     pass
 
 class RouteAdmin(admin.ModelAdmin):
     pass
 
-class POIAdmin(admin.ModelAdmin):
+class SpotAdmin(admin.ModelAdmin):
     pass
     
-admin.site.register(Class, ClassAdmin)
+admin.site.register(Course, CourseAdmin)
 admin.site.register(Route, RouteAdmin)
-admin.site.register(POI, POIAdmin)
+admin.site.register(Spot, SpotAdmin)

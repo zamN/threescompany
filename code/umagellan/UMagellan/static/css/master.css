@@ -1,3 +1,30 @@
+/* Import SERIF font  */
+@font-face {
+    font-family: 'Bembo';
+    src: url('../fonts/BemboStd.otf');
+}
+
+/* Import SANS-SERIF font  */
+@font-face {
+    font-family: 'Univers';
+    src: url('../fonts/UniversLTStd.otf');
+}
+
+/* Fix navbar overlapping content */
 .main-content {
-    margin-top: 50px;
+    margin-top: 75px;
+}
+
+/* Fix nav links misaligned */
+.top-navbar .nav li {
+    margin-top: 10px;
+}
+
+.top-navbar .nav li a {
+    font-size: 15px;
+}
+
+/* Fix fonts */
+h1, p {
+    font-family: Univers;
 }

@@ -34,19 +34,12 @@
                     </button>
 
                     <!-- Brand name -->
-                    <a class="brand" href="#">Project name</a>
+                    <a class="brand" href="#">
+                        <img src="{% static 'img/logo.png' %}" alt="UMagellan logo" width="150" />
+                    </a>
 
                     <!-- Nav links -->
                     <div class="nav-collapse collapse">
-                        <!-- Static links -->
-                        <div class="static-links">
-                            <ul class="nav">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li><a href="#about">About</a></li>
-                                <li><a href="#contact">Contact</a></li>
-                            </ul>
-                        </div>
-
                         <!-- User links -->
                         <div class="user-links pull-right">
                             <span class="logged-in">
@@ -82,47 +75,20 @@
         <!-- Main content -->
         <div class="container-fluid main-content">
             <div class="row-fluid">
-                <!-- Sidebar menu -->
-                <div class="span3">
-                    <div class="well sidebar-nav">
-                        <ul class="nav nav-list">
-                            <li class="nav-header">Sidebar</li>
-                                <li class="active"><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                            <li class="nav-header">Sidebar</li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                            <li class="nav-header">Sidebar</li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- View content -->
-                <div id="content" class="span9">
-                    {% block content %}
-                    {% endblock %}
-                </div>
+                {% block content %}
+                {% endblock %
             </div>
         </div>
 
         <div id="scripts">
-          <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
-          <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
-          <script src="{% static 'lib/cookie/jquery.cookie.js' %}"></script>
-          <script src="{% static 'js/navbar.js' %}"></script>
-          <script src="{% static 'lib/openstreetmaps/OpenLayers.js' %}" /></script>
+            <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+            <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+            <script src="{% static 'lib/cookie/jquery.cookie.js' %}"></script>
+            <script src="{% static 'js/navbar.js' %}"></script>
+            <script src="{% static 'lib/openstreetmaps/OpenLayers.js' %}" /></script>
 
-          {% block extra_scripts %}
-          {% endblock %}
+            {% block extra_scripts %}
+            {% endblock %}
         </div>
     </body>
 </html>

@@ -1,10 +1,13 @@
+from bs4 import BeautifulSoup
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext, loader
-from bs4 import BeautifulSoup
+from UMagellan.models import Course
 
 # views go here
 def index(request):
-    soup = BeautifulSoup("bla")
-    return render_to_response('index.html', {}, context_instance=RequestContext(request))
+    courses = Course.objects.filter(user = request.user.id)
 
+    return render_to_response('index.html', {'courses': courses}, 
+        context_instance = RequestContext(request))

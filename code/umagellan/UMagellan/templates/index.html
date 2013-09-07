@@ -1,18 +1,44 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Page Title
-{% endblock %}
+{% block title %}UMagellan{% endblock %}
 
 {% block extra_scripts %}
-<script src="/static/js/index.js" /></script>
+    <script src="/static/js/index.js" /></script>
 {% endblock %}
 
 {% block extra_stylesheets %}
-<link rel="stylesheet" href="/static/css/index.css" />
+    <link rel="stylesheet" href="/static/css/index.css" />
 {% endblock %}
 
-{% block content %}
-<div id="map" class="smallmap"></div>
-{% endblock %}
+<!-- Sidebar -->
+<div class="span2">
+    <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+            <li class="nav-header">Courses</li>
+                {% for course in courses %}
+                    <li><a href="#">{{ course.department }}{{ course.course_number }}</a></li>
+                {% endfor %}
+                <li><a href="#">Add Class</a></li>
+            
+            <li class="nav-header">Routes</li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+    
+            <li class="nav-header">Spots</li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+        </ul>
+    </div>
+</div>
 
+<!-- View content -->
+<div class="span10">
+    {% block content %}
+        <div id="map" class="smallmap"></div>
+    {% endblock %}
+</div>

@@ -114,6 +114,7 @@ AUTHENTICATION_BACKENDS = (
 
 # CAS Middleware Settings
 CAS_SERVER_URL = 'https://login.umd.edu/cas/'
+CAS_REDIRECT_URL = '/#'
 
 ROOT_URLCONF = 'UMagellan.urls'
 

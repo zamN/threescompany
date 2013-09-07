@@ -1,1 +1,0 @@
-Git repo for the 2013 Daemon Dash Hackathon at the University of Maryland.

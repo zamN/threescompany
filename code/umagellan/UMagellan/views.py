@@ -9,5 +9,5 @@ from UMagellan.models import Course
 def index(request):
     courses = Course.objects.filter(user = request.user.id)
 
-    return HttpResponse('index.html', {'courses': courses}, 
+    return render_to_response('index.html', {'courses': courses}, 
         context_instance = RequestContext(request))

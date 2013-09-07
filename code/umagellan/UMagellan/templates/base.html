@@ -22,5 +22,8 @@
         <!-- Scripts -->
         <script src="{% static '/lib/jquery/jquery.min.js' %}"></script>
         <script src="{% static '/lib/bootstrap/js/bootstrap.min.js' %}"></script>
+        {% block extra_scripts %}
+        {% endblock %}
     </body>
 </html>
+

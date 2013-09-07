@@ -7,17 +7,19 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'UMagellan.views.home', name='home'),
-    # url(r'^UMagellan/', include('UMagellan.foo.urls')),
-    url(r'^$', login_required(index)),
+    # Load index page
+    url(r'^$', index),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
+    # Admin views
     url(r'^admin/', include(admin.site.urls)),
+
+    # Course views
+    url(r'^/course/create/$', 'django_cas.views.login', name = 'course_create_page'),
+    url(r'^/course/edit/$', 'django_cas.views.login', name = 'course_edit_page'),
+    url(r'^/course/delete/$', 'django_cas.views.login', name = 'course_delete_page'),
     
-    (r'^accounts/login/$', 'django_cas.views.login'),
-    (r'^accounts/logout/$', 'django_cas.views.logout'),
+    # User views
+    url(r'^login/$', 'django_cas.views.login', name = 'user_login_page'),
+    url(r'^logout/$', 'django_cas.views.logout', name = 'user_logout_page'),
+    url(r'^/user/create/$', index, name = 'user_create_page'),
 )

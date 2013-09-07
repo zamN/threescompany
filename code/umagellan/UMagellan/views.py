@@ -6,4 +6,5 @@ from bs4 import BeautifulSoup
 # views go here
 def index(request):
     soup = BeautifulSoup("bla")
-    return render_to_response('example.html', {}, context_instance=RequestContext(request))
+    return render_to_response('index.html', {}, context_instance=RequestContext(request))
+

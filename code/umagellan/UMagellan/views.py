@@ -20,6 +20,7 @@ def index(request):
     courses = Course.objects.filter(user = request.user.id)
     routes = None
     spots = Spot.objects.filter(user = request.user.id)
+    days = [('Monday', 'M'), ('Tuesday', 'Tu'), ('Wednesday', 'W'), ('Thursday', 'Th'), ('Friday', 'F') ]
     
     try:
         user = User.objects.get(id=request.user.id)
@@ -27,7 +28,7 @@ def index(request):
         user = None
 
     return render_to_response('index.html', 
-        {'courses': courses, 'routes': routes, 'spots': spots, 'user': user}, 
+        {'courses': courses, 'routes': routes, 'spots': spots, 'user': user, 'days': days}, 
         context_instance = RequestContext(request))
 
 def SetHome(request):

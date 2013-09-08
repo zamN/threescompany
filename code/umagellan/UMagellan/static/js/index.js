@@ -50,9 +50,12 @@ $(function() {
       });
 
       // Get the course coords.
-      var courses = [];
+      var points = [];
+      if ($(user_curr_home).val() !== "") {
+          points.push(getCoordsBy("name_short", $(".homes option:selected").val()));
+      }
       courses$.each(function(i, course) {
-          courses.push(
+          points.push(
               getCoordsBy("name_short", $(course).attr("data-build_code"))
           );
       });
@@ -60,8 +63,8 @@ $(function() {
       // Clear the map
       directionsDisplay.set("directions", null);
       // If there are two or more courses, display their routes.
-      if (courses.length >= 2) {
-          displayRoute(courses);
+      if (points.length >= 2) {
+          displayRoute(points);
       // Otherewise, reset the map to Mckeldin Mall.
       } else {
           M.map.setZoom(16);

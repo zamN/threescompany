@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^add_course', 'UMagellan.views.add_course'),
     url(r'^get_course', 'UMagellan.views.get_course'),
     url(r'^delete_course/(?P<course_id>\d+)/', 'UMagellan.views.delete_course'),
-    url(r'^delete_all_courses/$', 'UMagellan.views.delete_all_courses'),
+    url(r'^delete_all_courses/$', 'UMagellan.views.delete_all_courses', name='delete_all_courses'),
 
     # Admin views
     url(r'^admin/', include(admin.site.urls)),

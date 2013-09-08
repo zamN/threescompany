@@ -10,6 +10,5 @@ rm umagellan.db
 rm -rf UMagellan/migrations/
 
 $PYTHON manage.py syncdb
-$PYTHON manage.py schemamigration UMagellan --initial
-$PYTHON manage.py migrate UMagellan
+$PYTHON manage.py convert_to_south UMagellan
 

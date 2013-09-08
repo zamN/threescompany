@@ -133,7 +133,7 @@ def add_course(request):
           c.user = User.objects.get(id = request.user.id)
         except ObjectDoesNotExist:
           response_data['error'] = True
-          response_data['error_msg'] = 'User not logged in.'
+          response_data['error_msg'] = 'You must log in before adding courses!'
           return HttpResponse(json.dumps(response_data), mimetype="application/json")
         if Course.objects.filter(name=c.name, start_time=c.start_time, section_days=c.section_days, user=c.user).exists() != True:
           c.save()

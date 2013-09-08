@@ -149,7 +149,8 @@ def add_course(request):
         course_info['build_code']   = c.build_code
         course_info['start_time']   = c.start_time.strftime("%H:%M")
         course_info['end_time']     = c.end_time.strftime("%H:%M")
-        course_info['section_days'] = c.section_days
+        course_info['section_days'] = []
+        split_days(course_info['section_days'], c.section_days)
         course_info['user']         = c.user.username
         course_info['link']         = c.link
         course_info['tag']          = '' if c.tag == None else c.tag
@@ -227,16 +228,18 @@ def fill_table(table, resp):
       course_info['end_time']     = r.end_time.strftime("%H:%M")
       course_info['section_days'] = []
 
-      for i in range(0, len(r.section_days)):
-        print i
-        if i+1 < len(r.section_days) and r.section_days[i+1].islower():
-          course_info['section_days'].append(r.section_days[i] + r.section_days[i+1])
-          i += 2
-        elif not r.section_days[i].islower():
-          course_info['section_days'].append(r.section_days[i])
-
+      split_days(course_info['section_days'], r.section_days)
 
       course_info['user']         = r.user.username
       course_info['link']         = r.link
       course_info['tag']          = r.tag
       table['courses'].append(course_info)
+
+def split_days(table, section_days):
+    for i in range(0, len(section_days)):
+      print i
+      if i+1 < len(section_days) and section_days[i+1].islower():
+        table.append(section_days[i] + section_days[i+1])
+        i += 2
+      elif not section_days[i].islower():
+        table.append(section_days[i])

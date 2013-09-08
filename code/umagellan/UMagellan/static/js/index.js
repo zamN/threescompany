@@ -61,8 +61,15 @@ $(function() {
       M.initRoutes($(this).attr("href").slice(1));
   });
 
+  var user_curr_home = $('.user_curr_home').val();
   $.each(BUILDINGS, function(i, b) {
-    $('.homes').append('<option value="' + b.name_short + '">' + b.name_long + '</option>');
+    if(b.name_short.length != 0) {
+      if(b.name_short == user_curr_home) {
+        $('.homes').append('<option value="' + b.name_short + '" selected>' + b.name_long + '</option>');
+      } else {
+        $('.homes').append('<option value="' + b.name_short + '">' + b.name_long + '</option>');
+      }
+    }
   });
 
 });

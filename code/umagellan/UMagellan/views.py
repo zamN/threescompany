@@ -34,11 +34,8 @@ def SetHome(request):
     if request.method == 'POST':
         try:
             profile = UserProfile()
-            building_code = request.POST['building_code']
-
-            print building_code
-
-            user = request.user
+            profile.home = request.POST.get('user_home')
+            profile.user = request.user
             profile.save()
         except:
             pass

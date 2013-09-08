@@ -16,15 +16,16 @@ $(function() {
                     $('#' + id + ' .error-field .alert').html('<button type="button" class="close" data-dismiss="alert">&times;</button>' + data.error_msg);
                     $('#' + id + ' .error-field').show();
                 } else {
-                    $('.tab-pane.active').children('table').append(
-                        '<tr>' +
-                        '<td>' + course_name + '</td>' +
-                        '<td>' + course_sec + '</td>' +
-                        '<td width="10%"><a href="#" class="rem-course">&times;</a></td>' +
-                        '</tr>');
+                    $("#course_template").Chevron("render", {
+                        name: course_name,
+                        sec: course_sec
+                    }, function(result) {
+                        $('.tab-pane.active')
+                        .children('table')
+                        .append(result);
+                    });
 
                     remCourseEvents();
-
                     // Prevent default action
                     e.preventDefault();
                 }
@@ -47,7 +48,7 @@ $(function() {
     $(".save-course").click(saveCourse);
     Mousetrap.bind("enter", function(e) {
         if ($(".section-field").is(":focus"))
-            saveCourse(e);
+        saveCourse(e);
     });
 
     remCourseEvents();

@@ -44,7 +44,7 @@ $(function() {
                 });
             });
             remCourseEvents();
-            M.initRoutes($(".tab-pane.active").attr("id"));
+            M.initRoutes();
         });
     }
 
@@ -54,13 +54,19 @@ $(function() {
             $(x).find(".rem-course").click(function(e) {
                 $.ajax({
                     url: '/delete_course/' + $(this).attr('course_id')
-                }).done(function() { $(x).remove(); });
+                }).done(function() {
+                  $(x).remove();
+                  M.initRoutes()
+                });
             });
         });
     }
 
     // Bind to the button and the enter key.
     $(".save-course").click(saveCourse);
+    $(".name-field, .section-field").map(function(i, el) {
+        $(el).addClass("mousetrap");
+    });
     Mousetrap.bind("enter", function(e) {
         if ($(".section-field").is(":focus"))
         saveCourse(e);

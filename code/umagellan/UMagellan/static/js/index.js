@@ -38,19 +38,28 @@ $(function() {
   }
 
   M.initRoutes = function(paneID) {
+      if (paneID === null || paneID === undefined)
+          paneID = $(".tab-pane.active").attr("id");
       var courses = [];
       $("#"+paneID+".tab-pane .course-row").each(function(i, course) {
           courses.push(
               getCoordsBy("name_short", $(course).attr("data-build_code"))
           );
       });
-      displayRoute(courses);
+
+      // Clear the map
+      directionsDisplay.set("directions", null);
+      // If there are two or more courses, display their routes.
+      if (courses.length >= 2)
+          displayRoute(courses);
+      // Otherewise, reset the map to Mckeldin Mall.
+      else
+          M.map.panTo(getCoordsBy('name_short', 'MKM'));
   }
 
   $(".nav-tabs a").mouseup(function() {
       M.initRoutes($(this).attr("href").slice(1));
   });
-
 
 });
 

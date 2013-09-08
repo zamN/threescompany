@@ -11,9 +11,9 @@ from UMagellan.models import Spot
 
 # views go here
 def index(request):
-    courses = Course.objects.filter(user = request.user)
+    courses = Course.objects.filter(user = request.user.id)
     routes = None
-    spots = Spot.objects.filter(user = request.user)
+    spots = Spot.objects.filter(user = request.user.id)
 
     return render_to_response('index.html', 
         {'courses': courses, 'routes': routes, 'spots': spots}, 

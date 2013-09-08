@@ -10,11 +10,11 @@ class Course(models.Model):
     room = models.IntegerField()
     user = models.ForeignKey(User, related_name = 'users_courses')
     
-# the route that the user will take from start_location to end_location
-class Route(models.Model):
-    start = models.ForeignKey(Course, related_name = 'class_start_location')
-    end = models.ForeignKey(Course, related_name = 'class_end_location')
-    user = models.ForeignKey(User)
+# # the route that the user will take from start_location to end_location
+# class Route(models.Model):
+#     start = models.ForeignKey(Course, related_name = 'class_start_location')
+#     end = models.ForeignKey(Course, related_name = 'class_end_location')
+#     user = models.ForeignKey(User)
     
 # represents a point of interest
 class Spot(models.Model):

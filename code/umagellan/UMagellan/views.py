@@ -6,10 +6,14 @@ from django.template import RequestContext, loader
 from UMagellan.models import Course
 from bs4 import BeautifulSoup
 import urllib2
+# from UMagellan.models import Route
+from UMagellan.models import Spot
 
 # views go here
 def index(request):
     courses = Course.objects.filter(user = request.user.id)
+    routes = None
+    spots = Spot.objects.filter(user = request.user.id)
 
     return render_to_response('index.html', {'courses': courses}, 
         context_instance = RequestContext(request))
@@ -43,4 +47,7 @@ def derp(request):
     # error = true
     # error_msg = blah blah
 
-    return render_to_response('test.html', {'soup':soup}, context_instance=RequestContext(request))
+    # return render_to_response('test.html', {'soup':soup}, context_instance=RequestContext(request))
+    return render_to_response('index.html', 
+        {'courses': courses, 'routes': routes, 'spots': spots}, 
+        context_instance = RequestContext(request))

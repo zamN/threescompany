@@ -1,6 +1,7 @@
-window.M = {};
-
-M.map = {};
+window.M = {
+    map: {},
+    markers: []
+};
 
 $(function() {
   M.map = new google.maps.Map(document.getElementById('map'), {
@@ -11,20 +12,45 @@ $(function() {
   $('#map').height($(window).height() - 85);
 
   var directionsService = new google.maps.DirectionsService(),
-      directionsDisplay = new google.maps.DirectionsRenderer({ map: M.map });
+      directionsDisplay = new google.maps.DirectionsRenderer({
+        map: M.map,
+        suppressMarkers: true
+  });
 
-  function displayRoute(courses) {
+  function setMarkers(points) {
+      points.map(function(p, i) {
+          M.markers.push(new google.maps.Marker({
+              map: M.map,
+              position: p,
+              icon: "/static/img/mapMarkers/"
+                    +(i+1)
+                    +"ABCDEFG"[i]
+                    +".png"
+          }));
+      });
+  }
+
+  function destroyMarkers() {
+      M.markers.map(function(m) {
+          m.setMap(null);
+      });
+      M.markers = [];
+  }
+
+  function displayRoute(points) {
     var request = {
-      origin: courses[0],
-      destination: courses[courses.length-1],
-      waypoints: courses.slice(1, -1).map(function(c) {
+      origin: points[0],
+      destination: points[points.length-1],
+      waypoints: points.slice(1, -1).map(function(c) {
         return { location: c }
       }),
-      travelMode: google.maps.DirectionsTravelMode.WALKING
+      travelMode: google.maps.DirectionsTravelMode.WALKING,
     };
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
+        destroyMarkers();
         directionsDisplay.setDirections(response);
+        setMarkers(points);
       } else { alert ('Failed to route!'); }
     });
   }

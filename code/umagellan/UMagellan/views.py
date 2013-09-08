@@ -33,8 +33,19 @@ class UserCreate(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            # <process form cleaned data>
-            return HttpResponseRedirect('/success/')
+            cd = form.cleaned_data
+            try:
+                user = User.objects.get(id=request.user.id)
+            except:
+                user = User()
+                
+            user.first_name = cd['first_name']
+            user.last_name = cd['last_name']
+            user.email = cd['email']
+            user.password = cd['password']
+            user.save()
+                
+            return HttpResponse("User created successfully.")
 
         return render(request, self.template_name, {'form': form})
         context_instance = RequestContext(request)

@@ -39,14 +39,20 @@
                 {% else %}
                 <div class="tab-pane" id="{{ day.1 }}">
                 {% endif %}
-                    <h3>{{ day.0 }}
-                        <div class="starting-from">
+                    <h3>{{ day.0 }}</h3>
+                    <div class="starting-from">
+                        {% ifequal home '' %}
+                            <div class="alert">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                You haven't set a home location!
+                            </div>
+                        {% else %}
                             <img src="{% static 'img/mapMarkers/1A.png' %}" width="12" height="21" />
                             Starting from <span class="user-home-loc">
                               {{home}}
                             </span>
-                        </div>
-                    </h3>
+                        {% endifequal %}
+                    </div>
 
                     <div class="error-field">
                         <div class="alert alert-danger"></div>

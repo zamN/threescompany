@@ -126,11 +126,12 @@ $(function() {
   });
 
   M.home = $('.user_curr_home');
+  $('.homes').append('<option>------------</option>');
   $.each(BUILDINGS, function(i, b) {
       if(b.name_long == M.home.val()) {
         $('.homes').append('<option selected>' + b.name_long + '</option>');
       } else {
-        $('.homes').append('<option >' + b.name_long + '</option>');
+        $('.homes').append('<option>' + b.name_long + '</option>');
       }
   });
 

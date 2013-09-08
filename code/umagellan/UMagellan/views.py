@@ -19,19 +19,12 @@ def index(request):
     courses = Course.objects.filter(user = request.user.id)
     routes = None
     spots = Spot.objects.filter(user = request.user.id)
-    
-    try:
-        user = User.objects.get(id=request.user.id)
-    except:
-        user = None
 
     return render_to_response('index.html', 
-        {'courses': courses, 'routes': routes, 'spots': spots, 'user': user}, 
+        {'courses': courses, 'routes': routes, 'spots': spots}, 
         context_instance = RequestContext(request))
-
-'''    
-form to create/register new user
-'''
+    
+# form to create/register new user
 class UserCreate(View):
     form_class = UserForm
     template_name = 'user_create.html'
@@ -55,7 +48,7 @@ class UserCreate(View):
             user.password = cd['password']
             user.save()
                 
-            return HttpResponseRedirect('home')
+            return HttpResponse("User created successfully.")
 
         return render(request, self.template_name, {'form': form})
         context_instance = RequestContext(request)
@@ -123,7 +116,12 @@ def add_course(request):
 
         c.section_days = classes[i].find('span', {'class' : 'section-days'}).text
         c.user = User.objects.get(id = request.user.id)
-        c.save()
+        if Course.objects.filter(name=c.name, section=c.section, user=c.user).exists() != True:
+          c.save()
+        else:
+          response_data['error'] = True
+          response_data['error_msg'] = 'Course already exists!'
+          return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     # returns:
     # all section($)
@@ -135,10 +133,5 @@ def add_course(request):
 
     response_data['error'] = False
     response_data['error_msg'] = ''
-    response_data['course-name'] = c.name
-    response_data['course-section'] = c.section
-    response_data['course-build_code'] = c.build_code
-    response_data['course-start_time'] = c.start_time.strftime('%H:%M')
-    response_data['course-end_time'] = c.end_time.strftime('%H:%M')
-    response_data['course-section_days'] = c.section_days
+    response_data['course'] = c.name
     return HttpResponse(json.dumps(response_data), mimetype="application/json")

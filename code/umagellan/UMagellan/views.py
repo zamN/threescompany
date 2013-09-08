@@ -29,6 +29,17 @@ def index(request):
         {'courses': courses, 'routes': routes, 'spots': spots, 'user': user}, 
         context_instance = RequestContext(request))
 
+def SetHome(View):
+    if request.method == 'POST':
+        try:
+            profile = UserProfile()
+            building_code = request.POST['building_code']
+            user = request.user
+            profile.save()
+        except:
+            pass
+        
+
 '''    
 form to create/register new user
 '''

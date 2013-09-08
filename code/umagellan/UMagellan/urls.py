@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Load index page
+    url(r'^add_course', 'UMagellan.views.add_course'),
     url(r'^$', index, name='home'),
 
     # Admin views

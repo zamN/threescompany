@@ -1,17 +1,32 @@
-$(document).ready(function() {
-    $('.save-course').click(function() {
-        var course_name = $('input[name=course_name]').val();
-        var course_sec = $('input[name=course_sec]').val();
+$(function() {
+    $('.save-course').click(function(e) {
+        var id = $(this).parents('.tab-pane').attr('id');
+        var course_name = $('#' + id + ' .name-field').val();
+        var course_sec = $('#' + id + ' .section-field').val();
 
+        // Append course to table
         if(course_name.length != 0 && course_sec.length != 0) {
-            $('.courses-list').append('<li>' + course_name + ' (' + course_sec + ') <a href="#" class="pull-right del-course">&times;</a></li>');
-            $('.del-course').click(function() {
-                $(this).parent().remove();
-            });
+            $(this).parents('.tab-pane').children('table').append(
+                '<td>' + course_name + '</td>' +
+                '<td>' + course_sec + '</td>' +
+                '<td width="10%"><a href="#" class="rem-course">&times;</a></td>'
+            );
         }
+
+        // Re-apply remove events
+        $('.rem-course').click(function(e) {
+            $(this).parents('tr').remove();
+        });
+
+        // Prevent default action
+        e.preventDefault();
     });
 
-    $('.del-course').click(function() {
-        $(this).parent().remove();
+    $('.rem-course').click(function(e) {
+        // Remove course from table
+        $(this).parents('tr').remove();
+
+        // Prevent default action
+        e.preventDefault();
     });
 });

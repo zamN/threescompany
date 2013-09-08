@@ -3,7 +3,7 @@
     height: 690px;
 }
 
-/* Fix for Bootstrap conflict */
+/* Fix for Bootstrap/Gmaps conflict */
 #map img {
   max-width: none;
 }
@@ -12,47 +12,34 @@
   width: auto; display:inline; 
 }
 
-.sidebar-nav {
-    padding: 5px;
+.sidebar h3 {
+    margin: 0;
 }
 
-.sidebar-nav h4 {
-    color: #555;
+.sidebar .tab-content {
+    padding-left: 10px;
 }
 
-.sidebar-nav .courses-list {
-    color: #555;
-    list-style-type: none;
-    margin-left: 0;
+.sidebar .tab-pane .rem-course {
+    color: #999;
+    font-weight: bold;
 }
 
-.sidebar-nav .del-course {
-    color: #555;
-}
-
-.sidebar-nav .del-course:hover {
+.sidebar .tab-pane .rem-course:hover {
     text-decoration: none;
 }
 
-.sidebar-nav .add-course {
-    margin-top: 5px;
-}
-
-.sidebar-nav .add-course input {
-    font-size: 8pt;
+.sidebar .tab-pane .add-course input {
     display: inline-block;
+    font-size: 8pt;
+}
+
+.sidebar .tab-pane .add-course input[type=text] {
     margin: 0;
-    position: relative;
-}
-
-.sidebar-nav .add-course input[type=text] {
     padding: 2px 5px 2px 5px;
+    width: 55px;
 }
 
-.sidebar-nav .add-course input[name=course_name] {
-    width: 60px;
-}
-
-.sidebar-nav .add-course input[name=course_sec] {
-    width: 45px;
+.sidebar .tab-pane .add-course a {
+    padding: 2px 5px 2px 5px;
 }

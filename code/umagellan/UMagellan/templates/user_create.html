@@ -9,7 +9,7 @@
 		}
 	</style>
 
-	<h1>User Registration</h1>
+	<h2>Create Account</h2>
 
 	<form action="{% url 'user_create_page' %}" method="post">
 		{% csrf_token %}
@@ -21,6 +21,6 @@
 	        </div>
     	{% endfor %}
 
-		<input type="submit" value="Submit">
+		<input type="submit" class="btn btn-primary" value="Submit" />
 	</form>
 {% endblock %}

@@ -27,8 +27,11 @@
         <div class="tab-content">
             <div class="tab-pane active" id="mon">
                 <h3>Monday</h3>
-                {% if courses %}
-                    <table class="table table-striped">
+                <div class="error-field">
+                    <div class="alert alert-danger"></div>
+                </div>
+                <table class="table table-striped">
+	                {% if courses %}
                         <tr>
                             <th width="45%">Name</th>
                             <th width="45%">Section</th>
@@ -38,15 +41,15 @@
                             <tr>
                                 <td>{{ course.name }}</td>
                                 <td>{{ course.section }}</td>
-                                <td><a href="#" class="rem-course">&times;</a></td>
+                                <td><a href="#" class="rem-course" course_id="{{ course.id }}">&times;</a></td>
                             </tr>
                         {% endfor %}
-                    </table>
-                {% endif %}
+                    {% endif %}
+                </table>
                 <div class="add-course">
                     <p class="muted">Add Course</p>
                     <input type="text" name="name" class="name-field" placeholder="Name" />
-                    <input type="text" name="section" class="section-field" placeholder="Section" />
+                    <input type="text" name="section" class="section-field mousetrap" placeholder="Section" />
                     <a href="#" class="btn btn-mini save-course">
                         <i class="icon-ok-sign"></i>
                     </a>
@@ -54,6 +57,9 @@
             </div>
             <div class="tab-pane" id="tue">
                 <h3>Tuesday</h3>
+                <div class="error-field">
+                    <div class="alert alert-danger"></div>
+                </div>
                 {% if courses %}
                     <table class="table table-striped">
                         <tr>
@@ -65,7 +71,7 @@
                             <tr>
                                 <td>{{ course.name }}</td>
                                 <td>{{ course.section }}</td>
-                                <td><a href="#" class="rem-course">&times;</a></td>
+                                <td><a href="#" class="rem-course" course_id="{{ course.id }}">&times;</a></td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -81,6 +87,9 @@
             </div>
             <div class="tab-pane" id="wed">
                 <h3>Wednesday</h3>
+                <div class="error-field">
+                    <div class="alert alert-danger"></div>
+                </div>
                 {% if courses %}
                     <table class="table table-striped">
                         <tr>
@@ -92,7 +101,7 @@
                             <tr>
                                 <td>{{ course.name }}</td>
                                 <td>{{ course.section }}</td>
-                                <td><a href="#" class="rem-course">&times;</a></td>
+                                <td><a href="#" class="rem-course" course_id="{{ course.id }}">&times;</a></td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -108,6 +117,9 @@
             </div>
             <div class="tab-pane" id="thu">
                 <h3>Thursday</h3>
+                <div class="error-field">
+                    <div class="alert alert-danger"></div>
+                </div>
                 {% if courses %}
                     <table class="table table-striped">
                         <tr>
@@ -119,7 +131,7 @@
                             <tr>
                                 <td>{{ course.name }}</td>
                                 <td>{{ course.section }}</td>
-                                <td><a href="#" class="rem-course">&times;</a></td>
+                                <td><a href="#" class="rem-course" course_id="{{ course.id }}">&times;</a></td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -135,6 +147,9 @@
             </div>
             <div class="tab-pane" id="fri">
                 <h3>Friday</h3>
+                <div class="error-field">
+                    <div class="alert alert-danger"></div>
+                </div>
                 {% if courses %}
                     <table class="table table-striped">
                         <tr>
@@ -146,7 +161,7 @@
                             <tr>
                                 <td>{{ course.name }}</td>
                                 <td>{{ course.section }}</td>
-                                <td><a href="#" class="rem-course">&times;</a></td>
+                                <td><a href="#" class="rem-course" course_id="{{ course.id }}">&times;</a></td>
                             </tr>
                         {% endfor %}
                     </table>

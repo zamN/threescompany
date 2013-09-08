@@ -16,6 +16,10 @@
     margin: 0;
 }
 
+.sidebar .error-field {
+    display: none;
+}
+
 .sidebar .tab-content {
     padding-left: 10px;
 }

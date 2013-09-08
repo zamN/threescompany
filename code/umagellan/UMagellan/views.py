@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext, loader
 from UMagellan.models import Course, Spot
@@ -20,12 +20,19 @@ def index(request):
     courses = Course.objects.filter(user = request.user.id)
     routes = None
     spots = Spot.objects.filter(user = request.user.id)
+    
+    try:
+        user = User.objects.get(id=request.user.id)
+    except:
+        user = None
 
     return render_to_response('index.html', 
-        {'courses': courses, 'routes': routes, 'spots': spots}, 
+        {'courses': courses, 'routes': routes, 'spots': spots, 'user': user}, 
         context_instance = RequestContext(request))
-    
-# form to create/register new user
+
+'''    
+form to create/register new user
+'''
 class UserCreate(View):
     form_class = UserForm
     template_name = 'user_create.html'
@@ -49,11 +56,24 @@ class UserCreate(View):
             user.password = cd['password']
             user.save()
                 
-            return HttpResponse("User created successfully.")
+            return HttpResponseRedirect('home')
 
-        return render(request, self.template_name, {'form': form})
-        context_instance = RequestContext(request)
+        return render(request, self.template_name, {'form': form}, context_instance = RequestContext(request))
 
+'''
+delete a course object from the database
+'''
+def delete_course(request, course_id):
+    try:
+        course = Course.objects.get(id=course_id)
+        course.delete()
+    except:
+        pass # course doesn't exist
+    return HttpResponse("Course deleted successfully") # redirect back to home page
+
+'''
+add new course object to the database
+'''
 def add_course(request):
     course = request.GET.get('course')
     section = request.GET.get('section')
@@ -115,7 +135,12 @@ def add_course(request):
 
     response_data['error'] = False
     response_data['error_msg'] = ''
-    response_data['course'] = c.name
+    response_data['course-name'] = c.name
+    response_data['course-section'] = c.section
+    response_data['course-build_code'] = c.build_code
+    response_data['course-start_time'] = c.start_time.strftime('%H:%M')
+    response_data['course-end_time'] = c.end_time.strftime('%H:%M')
+    response_data['course-section_days'] = c.section_days
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
 def get_course(request):

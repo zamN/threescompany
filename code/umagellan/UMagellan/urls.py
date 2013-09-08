@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^$', index, name='home'),
     url(r'^add_course', 'UMagellan.views.add_course'),
     url(r'^get_course', 'UMagellan.views.get_course'),
+    url(r'^delete_course/(?P<course_id>\d+)/', 'UMagellan.views.delete_course'),
 
     # Admin views
     url(r'^admin/', include(admin.site.urls)),

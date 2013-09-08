@@ -1,13 +1,13 @@
 window.M = {
     map: {},
     markers: [],
-    home: {}
+    home: {},
+    minZoom: 7,
+    maxZoom: 20
 };
 
 $(function() {
   $('.success-field').hide();
-
-  
 
   M.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 18,

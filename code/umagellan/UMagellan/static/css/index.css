@@ -1,3 +1,13 @@
+/* Manually set map height */
 #map {
     height: 690px;
 }
+
+/* Fix for Bootstrap conflict */
+#map img {
+  max-width: none;
+}
+
+#map label { 
+  width: auto; display:inline; 
+} 

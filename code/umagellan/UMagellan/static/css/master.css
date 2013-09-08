@@ -1,0 +1,38 @@
+/* Import SERIF font  */
+@font-face {
+    font-family: 'Bembo';
+    src: url('../fonts/BemboStd.otf');
+}
+
+/* Import SANS-SERIF font  */
+@font-face {
+    font-family: 'Univers';
+    src: url('../fonts/UniversLTStd.otf');
+}
+
+/* Fix navbar overlapping content */
+@media screen and (min-width: 960px){
+    .main-content {
+        margin-top: 75px;
+    }   
+}
+
+@media screen and (max-width: 960px){
+    .main-content {
+        margin-top: 25px;
+    }   
+}
+
+/* Fix nav links misaligned */
+.top-navbar .nav li, .top-navbar .btn-navbar {
+    margin-top: 10px;
+}
+
+.top-navbar .nav li a {
+    font-size: 15px;
+}
+
+/* Fix logo padding */
+.top-navbar .brand {
+    padding: 5px 0 5px 20px;
+}

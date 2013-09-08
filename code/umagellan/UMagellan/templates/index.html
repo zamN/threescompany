@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    UMagellan
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="/static/lib/handlebars/handlebars.js"></script>
+    <script src="/static/lib/mousetrap/mousetrap.min.js"></script>
+    <script src="/static/js/buildings.js"></script>
+    <script src="/static/js/index.js"></script>
+    <script src="/static/js/courses.js"></script>
+{% endblock %}
+
+{% block extra_stylesheets %}
+    <link rel="stylesheet" href="/static/css/index.css" />
+{% endblock %}
+
+{% block extra_templates %}
+    <link id="course_template" rel="template" href="/static/templates/course_table_row.mustache" />
+{% endblock %}
+
+{% block content %}
+    <!-- Sidebar -->
+    <div class="span3 sidebar">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#M" data-toggle="tab">Mon</a></li>
+            <li><a href="#Tu" data-toggle="tab">Tue</a></li>
+            <li><a href="#W" data-toggle="tab">Wed</a></li>
+            <li><a href="#Th" data-toggle="tab">Thu</a></li>
+            <li><a href="#F" data-toggle="tab">Fri</a></li>
+            <li><a href="#settings" data-toggle="tab"><i class="icon-cog"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            {% for day in days %}
+                {% if forloop.first %}
+                <div class="tab-pane active" id="{{ day.1 }}">
+                {% else %}
+                <div class="tab-pane" id="{{ day.1 }}">
+                {% endif %}
+                    <h3>{{ day.0 }}</h3>
+                    <div class="starting-from"
+                      {% if home|slice:":1" == '-' %}
+                        style="display:none;"
+                      {% endif %}
+                    >
+                      <img src="{% static 'img/mapMarkers/1A.png' %}" width="12" height="21" />
+                      Starting from <span class="user-home-loc">
+                        {{home}}
+                      </span>
+                    </div>
+
+                    <div class="error-field">
+                        <div class="alert alert-danger"></div>
+                    </div>
+                    <table class="table table-striped">
+                        <tr>
+                            <th width="10%"></th>
+                            <th width="25%">Name</th>
+                            <th width="15%">Section</th>
+                            <th width="25%">Room</th>
+                            <th width="15%">Type</th>
+                            <th width="10%"></th>
+                        </tr>
+                    </table>
+                    <div class="add-course">
+                        <p class="muted">Add Course</p>
+                        <input type="text" name="name" class="name-field" placeholder="Name" />
+                        <input type="text" name="section" class="section-field" placeholder="Section" />
+                        <a href="#" class="btn btn-mini save-course">
+                            <i class="icon-ok-sign"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="tab-pane" id="settings">
+                <h3>Settings</h3>
+                <div class="success-field">
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        Your changes have been saved!
+                    </div>
+                </div>
+
+                <form id="user_home" action="{% url 'set_user_home' %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <label for="home">Start point</label>
+                        <input type="hidden" class="user_curr_home" value="{{ user.profile.home }}">
+                        <select name="user_home" class="homes"></select> <br>
+                        <input type="submit" name="submit" value="Set start point" class="btn btn-primary" />
+                    </div>
+                </form>
+
+                <div style="margin-bottom: 20px;">
+                    <p>Clear courses <strong>(cannot be undone!)</strong></p>
+                    <a href="{% url 'delete_all_courses' %}" class="btn btn-danger">Clear all courses</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View content -->
+    <div class="span9 content">
+        <div id="map" class="smallmap"></div>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+/* Fix for Bootstrap/Gmaps conflict */
+#map img {
+  max-width: none;
+}
+
+#map label { 
+  width: auto; display:inline; 
+}
+
+.nav-tabs > li > a {
+    padding-right: 9px;
+    padding-left: 9px;
+}
+
+.sidebar h3 {
+    margin: 0;
+}
+
+.sidebar .error-field {
+    display: none;
+}
+
+.sidebar .tab-pane .rem-course {
+    color: #999;
+    font-weight: bold;
+}
+
+.sidebar .tab-pane .rem-course:hover {
+    text-decoration: none;
+}
+
+.sidebar .tab-pane .add-course input {
+    display: inline-block;
+    font-size: 8pt;
+}
+
+.sidebar .tab-pane .add-course input[type=text] {
+    margin: 0;
+    padding: 2px 5px 2px 5px;
+    width: 55px;
+}
+
+.sidebar .tab-pane .add-course a {
+    padding: 2px 5px 2px 5px;
+}
+
+.sidebar .add-course {
+    margin-bottom: 20px;
+}
+
+.sidebar .starting-from {
+    margin: 5px 0 5px;
+}
+
+.sidebar .starting-from img {
+    margin-right: 5px;
+    margin-left: 12px;
+}
+
+.marker-img img {
+    display: block;
+    margin: 0 auto;
+    max-width: inherit;
+}
+

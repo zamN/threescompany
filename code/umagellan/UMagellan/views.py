@@ -22,9 +22,7 @@ def index(request):
     spots = Spot.objects.filter(user = request.user.id)
     days = [('Monday', 'M'), ('Tuesday', 'Tu'), ('Wednesday', 'W'), ('Thursday', 'Th'), ('Friday', 'F') ]
     home = request.user.profile.home
-    
-    print type(home)
-    
+        
     try:
         user = User.objects.get(id=request.user.id)
     except:
@@ -89,8 +87,16 @@ def delete_course(request, course_id):
         pass # course doesn't exist
     return HttpResponse("Course deleted successfully") # redirect back to home page
 
+'''
+delete all courses related to the current user
+'''
 def delete_all_courses(request):
-    pass
+    try:
+        courses = Course.objects.filter(user=request.user)
+        courses.delete()
+    except:
+        pass # course doesn't exist
+    return HttpResponse("All courses deleted successfully") # redirect back to home page
 
 '''
 add new course object to the database

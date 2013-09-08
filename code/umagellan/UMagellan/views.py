@@ -101,7 +101,8 @@ def delete_all_courses(request):
         courses.delete()
     except:
         pass # course doesn't exist
-    return HttpResponse("All courses deleted successfully") # redirect back to home page
+    
+    return render(request, 'index.html', None, context_instance = RequestContext(request))
 
 '''
 add new course object to the database

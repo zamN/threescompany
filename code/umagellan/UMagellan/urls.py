@@ -9,6 +9,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Load index page
     url(r'^$', index),
+    url(r'^derp', 'UMagellan.views.derp'),
 
     # Admin views
     url(r'^admin/', include(admin.site.urls)),
@@ -21,5 +22,5 @@ urlpatterns = patterns('',
     # User views
     url(r'^login/$', 'django_cas.views.login', name = 'user_login_page'),
     url(r'^logout/$', 'django_cas.views.logout', name = 'user_logout_page'),
-    url(r'^user/create/$', UserCreate, name = 'user_create_page'),
+    url(r'^user/create/$', UserCreate.as_view(), name = 'user_create_page'),
 )

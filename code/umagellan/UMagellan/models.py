@@ -3,11 +3,11 @@ from django.contrib.auth.models import User
 
 # represents a class
 class Course(models.Model):
-    department = models.ForeignKey(User)
-    number = models.IntegerField()
-    section = models.IntegerField()
-    building = models.TextField(max_length = 3) 
-    room = models.IntegerField()
+    name = models.CharField(max_length=56)
+    section = models.CharField(max_length=4)
+    build_code = models.CharField(max_length=3)
+    start_time = models.DateTimeField(blank=True)
+    end_time = models.DateTimeField(blank=True)
     user = models.ForeignKey(User, related_name = 'users_courses')
     
 # # the route that the user will take from start_location to end_location

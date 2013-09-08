@@ -76,13 +76,25 @@ $(function() {
       M.initRoutes($(this).attr("href").slice(1));
   });
 
-  var user_curr_home = $('.user_curr_home').val();
+  var user_curr_home = $('.user_curr_home');
   $.each(BUILDINGS, function(i, b) {
-      if(b.name_long == user_curr_home) {
+      if(b.name_long == user_curr_home.val()) {
         $('.homes').append('<option selected>' + b.name_long + '</option>');
       } else {
         $('.homes').append('<option >' + b.name_long + '</option>');
       }
+  });
+
+  $("#user_home input[type=submit]").click(function(e) {
+      e.preventDefault();
+
+      $.ajax({
+            type: 'POST',
+            url: '/user/sethome/',
+            data: $('#user_home').serialize(),
+            success: function () {
+            }
+        })
   });
 
 });

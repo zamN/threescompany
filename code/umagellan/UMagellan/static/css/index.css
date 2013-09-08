@@ -7,6 +7,11 @@
   width: auto; display:inline; 
 }
 
+.nav-tabs > li > a {
+    padding-right: 9px;
+    padding-left: 9px;
+}
+
 .sidebar h3 {
     margin: 0;
 }

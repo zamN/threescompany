@@ -1,5 +1,5 @@
 Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-  if(v1 === v2) {
+    if(v1 === v2) {
       return options.fn(this);
     }
   return options.inverse(this);
@@ -12,6 +12,9 @@ $(function() {
         var id = $('.tab-pane.active').attr('id');
         var course_name = $('#' + id + ' .name-field').val();
         var course_sec = $('#' + id + ' .section-field').val();
+
+        $('#' + id + ' .name-field').val('');
+        $('#' + id + ' .section-field').val('');
 
         // Append course to table
         if(course_name.length != 0 && course_sec.length != 0) {

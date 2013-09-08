@@ -95,8 +95,8 @@ def add_course(request):
     response_data['error'] = False
     response_data['error_msg'] = ''
 
-    print course
-    print section
+    # print course
+    # print section
 
     if len(section) != 4:
       if len(section) == 3:

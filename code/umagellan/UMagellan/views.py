@@ -13,6 +13,7 @@ from django.views.generic.base import View
 from UMagellan.models import Spot
 from dateutil import parser
 from django.core import serializers
+from django.core.exceptions import ObjectDoesNotExist
 
 # views go here
 def index(request):
@@ -81,17 +82,6 @@ def add_course(request):
       response_data['error_msg'] = 'Course does not exist!'
       return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
-    #x = Course()
-    #x.name = "Hello"
-    #x.section = "1234"
-    #x.build_code = "CSI"
-    #x.user = User.objects.get(id = request.user.id)
-    #x.save()
-
-    #class_days = cmsc131.find('div', {'class' : 'class-days-container'}).prettify()
-    #cmsc131 =  coursec.find("div", {"class" : "course"}, {"id" : "CMSC131"})
-    #coursec = soup.find("div", {"class" : "courses-container"})
-
     course_container = soup.find("div", {"class" : "courses-container"})
     first_block = course_container.find("div", {"class" : "course"}, {"id": course})
 
@@ -116,22 +106,58 @@ def add_course(request):
 
         c.section_days = classes[i].find('span', {'class' : 'section-days'}).text
         c.user = User.objects.get(id = request.user.id)
-        if Course.objects.filter(name=c.name, section=c.section, user=c.user).exists() != True:
+        if Course.objects.filter(name=c.name, start_time=c.start_time, user=c.user).exists() != True:
           c.save()
         else:
           response_data['error'] = True
           response_data['error_msg'] = 'Course already exists!'
           return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
-    # returns:
-    # all section($)
-    # section times
-    # building-code
-
-    # error = true
-    # error_msg = blah blah
-
     response_data['error'] = False
     response_data['error_msg'] = ''
     response_data['course'] = c.name
+    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+def get_course(request):
+    course = request.GET.get('course')
+    section = request.GET.get('section')
+    user = request.GET.get('user')
+    response_data = {}
+
+    if len(section) != 4:
+      if len(section) == 3:
+        section = "0" + section
+      else:
+        response_data['error'] = True
+        response_data['error_msg'] = 'Section ID is Invalid!'
+        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+    print course
+    print section
+    try:
+      resp = Course.objects.filter(name=course, section=section, user=User.objects.get(username__exact=user))
+    except ObjectDoesNotExist:
+      response_data['error'] = True
+      response_data['error_msg'] = 'Username does not exist.'
+      return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+    if len(resp) == 0:
+      response_data['error'] = True
+      response_data['error_msg'] = 'No results found for Course/Section'
+      return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+    response_data['courses'] = []
+
+    for r in resp:
+      course_info = {}
+      course_info['name']         = r.name
+      course_info['section']      = r.section
+      course_info['build_code']   = r.build_code
+      course_info['start_time']   = r.start_time.strftime("%H:%M")
+      course_info['end_time']     = r.end_time.strftime("%H:%M")
+      course_info['section_days'] = r.section_days
+      course_info['user']         = r.user.username
+      response_data['courses'].append(course_info)
+      
+
     return HttpResponse(json.dumps(response_data), mimetype="application/json")

@@ -1,14 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 # represents a class
 class Course(models.Model):
     name = models.CharField(max_length=56)
     section = models.CharField(max_length=4)
     build_code = models.CharField(max_length=3)
-    start_time = models.DateTimeField(blank=True)
-    end_time = models.DateTimeField(blank=True)
+    start_time = models.DateTimeField(default=datetime.now(), blank=True)
+    end_time = models.DateTimeField(default=datetime.now(), blank=True)
+    section_days = models.CharField(max_length=10)
     user = models.ForeignKey(User, related_name = 'users_courses')
+    def __unicode__(self):
+      return self.name
+
     
 # # the route that the user will take from start_location to end_location
 # class Route(models.Model):

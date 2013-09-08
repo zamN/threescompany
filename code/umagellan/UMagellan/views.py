@@ -15,7 +15,8 @@ def index(request):
     routes = None
     spots = Spot.objects.filter(user = request.user.id)
 
-    return render_to_response('index.html', {'courses': courses}, 
+    return render_to_response('index.html', 
+        {'courses': courses, 'routes': routes, 'spots': spots}, 
         context_instance = RequestContext(request))
 
 def derp(request):
@@ -47,7 +48,4 @@ def derp(request):
     # error = true
     # error_msg = blah blah
 
-    # return render_to_response('test.html', {'soup':soup}, context_instance=RequestContext(request))
-    return render_to_response('index.html', 
-        {'courses': courses, 'routes': routes, 'spots': spots}, 
-        context_instance = RequestContext(request))
+    return render_to_response('test.html', {'soup':soup}, context_instance=RequestContext(request))

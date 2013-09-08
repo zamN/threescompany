@@ -78,13 +78,11 @@ $(function() {
 
   var user_curr_home = $('.user_curr_home').val();
   $.each(BUILDINGS, function(i, b) {
-    if(b.name_short.length != 0) {
-      if(b.name_short == user_curr_home) {
+      if(b.name_long == user_curr_home) {
         $('.homes').append('<option selected>' + b.name_long + '</option>');
       } else {
         $('.homes').append('<option >' + b.name_long + '</option>');
       }
-    }
   });
 
 });

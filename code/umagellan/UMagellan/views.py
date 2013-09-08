@@ -125,7 +125,12 @@ def add_course(request):
         c.end_time = parser.parse(class_end)
 
         c.section_days = classes[i].find('span', {'class' : 'section-days'}).text
-        c.user = User.objects.get(id = request.user.id)
+        try:
+          c.user = User.objects.get(id = request.user.id)
+        except ObjectDoesNotExist:
+          response_data['error'] = True
+          response_data['error_msg'] = 'User not logged in.'
+          return HttpResponse(json.dumps(response_data), mimetype="application/json")
         if Course.objects.filter(name=c.name, start_time=c.start_time, user=c.user).exists() != True:
           c.save()
         else:

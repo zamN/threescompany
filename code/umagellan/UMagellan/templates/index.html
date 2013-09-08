@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
+    <script src="/static/lib/mousetrap/mousetrap.min.js"></script>
     <script src="/static/js/index.js"></script>
     <script src="/static/js/buildings.js"></script>
     <script src="/static/js/courses.js"></script>
@@ -27,8 +28,8 @@
         <div class="tab-content">
             <div class="tab-pane active" id="mon">
                 <h3>Monday</h3>
-                {% if courses %}
                     <table class="table table-striped">
+                        {% if courses %}
                         <tr>
                             <th width="45%">Name</th>
                             <th width="45%">Section</th>
@@ -41,12 +42,12 @@
                                 <td><a href="#" class="rem-course">&times;</a></td>
                             </tr>
                         {% endfor %}
+                        {% endif %}
                     </table>
-                {% endif %}
                 <div class="add-course">
                     <p class="muted">Add Course</p>
                     <input type="text" name="name" class="name-field" placeholder="Name" />
-                    <input type="text" name="section" class="section-field" placeholder="Section" />
+                    <input type="text" name="section" class="section-field mousetrap" placeholder="Section" />
                     <a href="#" class="btn btn-mini save-course">
                         <i class="icon-ok-sign"></i>
                     </a>

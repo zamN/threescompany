@@ -142,7 +142,7 @@ def add_course(request):
       if room != None:
         if room == 'ONLINE':
           response_data['error'] = True
-          response_data['error_msg'] = 'Cannot add online classes!'
+          response_data['error_msg'] = 'You cannot add online classes!'
           return HttpResponse(json.dumps(response_data), mimetype="application/json")
         else:
           c.room_number = room
@@ -165,7 +165,7 @@ def add_course(request):
         c.user = User.objects.get(id = request.user.id)
       except ObjectDoesNotExist:
         response_data['error'] = True
-        response_data['error_msg'] = 'User not logged in.'
+        response_data['error_msg'] = 'You must be logged in to add courses.'
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
       if Course.objects.filter(name=c.name, start_time=c.start_time, section_days=c.section_days, user=c.user).exists() != True:
         course_info = {}
@@ -186,7 +186,7 @@ def add_course(request):
         response_data['courses'].append(course_info)
       else:
         response_data['error'] = True
-        response_data['error_msg'] = 'Course already exists!'
+        response_data['error_msg'] = 'That course already exists!'
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     response_data['error'] = False
@@ -208,7 +208,7 @@ def get_course(request):
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
       except ObjectDoesNotExist:
         response_data['error'] = True
-        response_data['error_msg'] = 'User not logged in.'
+        response_data['error_msg'] = 'You must be logged in to add courses.'
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     if course == None and section != None:
@@ -225,7 +225,7 @@ def get_course(request):
         section = "0" + section
       else:
         response_data['error'] = True
-        response_data['error_msg'] = 'That section ID is Invalid!'
+        response_data['error_msg'] = 'That section ID is invalid!'
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     try:
@@ -237,7 +237,7 @@ def get_course(request):
 
     if len(resp) == 0:
       response_data['error'] = True
-      response_data['error_msg'] = 'That class/section was not found!'
+      response_data['error_msg'] = 'That class or section was not found!'
       return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     response_data['courses'] = []

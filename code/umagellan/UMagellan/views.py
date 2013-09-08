@@ -120,7 +120,7 @@ def add_course(request):
     response_data['courses'] = []
     for i in range(0, len(classes)):
       c = Course()
-      c.name = course.upper()
+      c.name = course
       c.section = section
       c.build_code = classes[i].find('span', {'class' : 'building-code'}).text
 
@@ -144,6 +144,7 @@ def add_course(request):
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
       if Course.objects.filter(name=c.name, start_time=c.start_time, section_days=c.section_days, user=c.user).exists() != True:
         course_info = {}
+        course_info = {}
         course_info['name']         = c.name
         course_info['section']      = c.section
         course_info['build_code']   = c.build_code
@@ -152,7 +153,7 @@ def add_course(request):
         course_info['section_days'] = c.section_days
         course_info['user']         = c.user.username
         course_info['link']         = c.link
-        course_info['tag']          = c.tag
+        course_info['tag']          = '' if c.tag == None else c.tag
         c.save()
         course_info['id']           = c.id
         response_data['courses'].append(course_info)
@@ -170,7 +171,29 @@ def get_course(request):
     section = request.GET.get('section')
     response_data = {}
 
-    if len(section) != 4:
+    if course == None and section == None:
+      try:
+        resp = Course.objects.filter(user=User.objects.get(id = request.user.id))
+        response_data['courses'] = []
+        fill_table(response_data, resp)
+        response_data['error'] = False
+        response_data['error_msg'] = ''
+        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+      except ObjectDoesNotExist:
+        response_data['error'] = True
+        response_data['error_msg'] = 'User not logged in.'
+        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+    if course == None and section != None:
+      response_data['error'] = True
+      response_data['error_msg'] = 'You must enter a course!'
+      return HttpResponse(json.dumps(response_data), mimetype="application/json")
+    elif course != None and section == None:
+      response_data['error'] = True
+      response_data['error_msg'] = 'You must enter a section!'
+      return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+    if section != None and len(section) != 4:
       if len(section) == 3:
         section = "0" + section
       else:
@@ -191,7 +214,11 @@ def get_course(request):
       return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     response_data['courses'] = []
+    fill_table(response_data, resp)
 
+    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+def fill_table(table, resp):
     for r in resp:
       course_info = {}
       course_info['name']         = r.name
@@ -203,7 +230,4 @@ def get_course(request):
       course_info['user']         = r.user.username
       course_info['link']         = r.link
       course_info['tag']          = r.tag
-      response_data['courses'].append(course_info)
-      
-
-    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+      table['courses'].append(course_info)

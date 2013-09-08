@@ -8,6 +8,7 @@ $(function() {
     center: getCoordsBy('name_short', 'MKM'),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
+  $('#map').height($(window).height() - 85);
 
   var directionsService = new google.maps.DirectionsService(),
       directionsDisplay = new google.maps.DirectionsRenderer({ map: M.map });
@@ -49,6 +50,7 @@ $(function() {
   $(".nav-tabs a").mouseup(function() {
       M.initRoutes($(this).attr("href").slice(1));
   });
+
 
 });
 

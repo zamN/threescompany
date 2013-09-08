@@ -23,16 +23,7 @@ $(function() {
                         '<td width="10%"><a href="#" class="rem-course">&times;</a></td>' +
                         '</tr>');
 
-                    var latestCourseRow = $('.tab-pane.active table tr:last-child');
-                    window.x = latestCourseRow();
-                    // Re-apply remove events
-                    console.log(latestCourseRow.children);
-                    latestCourseRow.children(".rem-course").click(function(e) {
-                        latestCourseRow.remove();
-                        $.ajax({
-                            url: '/delete_course/' + $(this).attr('course_id')
-                        });
-                    });
+                    remCourseEvents();
 
                     // Prevent default action
                     e.preventDefault();
@@ -41,18 +32,25 @@ $(function() {
         }
     }
 
+    function remCourseEvents() {
+        var courseRows = $('.tab-pane table tr:not(:first)');
+        courseRows.each(function(i, x) {
+            $(x).find(".rem-course").click(function(e) {
+                $.ajax({
+                    url: '/delete_course/' + $(this).attr('course_id')
+                }).done(function() { $(x).remove(); });
+            });
+        });
+    }
+
+    // Bind to the button and the enter key.
     $(".save-course").click(saveCourse);
     Mousetrap.bind("enter", function(e) {
-        if ($(".section-field").is(":focus")) {
-            saveCourse.call(this, e);
-        }
+        if ($(".section-field").is(":focus"))
+            saveCourse(e);
     });
 
-    $('.rem-course').click(function(e) {
-        // Remove course from table
-        $(this).parents('tr').remove();
+    remCourseEvents();
 
-        // Prevent default action
-        e.preventDefault();
-    });
 });
+

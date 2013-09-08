@@ -1,41 +1,52 @@
-var map;
+window.M = {};
 
-// Init map.
-function initialize() {
-  map = new google.maps.Map(document.getElementById('map'), {
+M.map = {};
+
+$(function() {
+  M.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 18,
-    center: findBuildingCoordsBy('name_short', 'MKM'),
+    center: getCoordsBy('name_short', 'MKM'),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
-  var directionsService = new google.maps.DirectionsService();
-  var directionsDisplay = new google.maps.DirectionsRenderer({ map: map });
 
-  var request = {
-    origin:      findBuildingCoordsBy('name_short', 'SYM'),
-    destination: findBuildingCoordsBy('name_short', 'MCK'),
-    waypoints: [
-      {location: findBuildingCoordsBy('name_short', 'SSU')},
-      {location: findBuildingCoordsBy('name_short', 'WIC')},
-      {location: findBuildingCoordsBy('name_short', 'ARC')},
-      {location: findBuildingCoordsBy('name_short', 'MTH')}
-    ],
-    travelMode: google.maps.DirectionsTravelMode.WALKING
-  };
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-    } else { alert ('Failed to route!'); }
-  });
-}
+  var directionsService = new google.maps.DirectionsService(),
+      directionsDisplay = new google.maps.DirectionsRenderer({ map: M.map });
 
-function findBuildingCoordsBy(attrName, attrValue) {
-  for (var i=0; i < BUILDINGS.length; i++) {
-    if (attrValue === BUILDINGS[i][attrName])
-      return new google.maps.LatLng(BUILDINGS[i].y, BUILDINGS[i].x);
+  function displayRoute(classes) {
+    var request = {
+      origin: classes[0],
+      destination: classes[classes.length-1],
+      waypoints: classes.slice(1, -1).map(function(c) {
+        return { location: c }
+      }),
+      travelMode: google.maps.DirectionsTravelMode.WALKING
+    };
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else { alert ('Failed to route!'); }
+    });
   }
-  return null;
-}
 
-// Run the `initialize` function.
-google.maps.event.addDomListener(window, 'load', initialize);
+  function getCoordsBy(attrName, attrValue) {
+    for (var i=0; i < BUILDINGS.length; i++) {
+      if (attrValue === BUILDINGS[i][attrName])
+        return new google.maps.LatLng(BUILDINGS[i].y, BUILDINGS[i].x);
+    }
+    return null;
+  }
+
+  // Test data.
+  var myClasses = [
+    getCoordsBy('name_short', 'SYM'),
+    getCoordsBy('name_short', 'MCK'),
+    getCoordsBy('name_short', 'SSU'),
+    getCoordsBy('name_short', 'WIC'),
+    getCoordsBy('name_short', 'ARC'),
+    getCoordsBy('name_short', 'MTH')
+  ];
+
+  displayRoute(myClasses);
+
+});
 

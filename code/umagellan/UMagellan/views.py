@@ -225,7 +225,17 @@ def fill_table(table, resp):
       course_info['build_code']   = r.build_code
       course_info['start_time']   = r.start_time.strftime("%H:%M")
       course_info['end_time']     = r.end_time.strftime("%H:%M")
-      course_info['section_days'] = r.section_days
+      course_info['section_days'] = []
+
+      for i in range(0, len(r.section_days)):
+        print i
+        if i+1 < len(r.section_days) and r.section_days[i+1].islower():
+          course_info['section_days'].append(r.section_days[i] + r.section_days[i+1])
+          i += 2
+        elif not r.section_days[i].islower():
+          course_info['section_days'].append(r.section_days[i])
+
+
       course_info['user']         = r.user.username
       course_info['link']         = r.link
       course_info['tag']          = r.tag

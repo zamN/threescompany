@@ -138,6 +138,14 @@ def add_course(request):
       c = Course()
       c.name = course.upper()
       c.section = section
+
+      room = classes[i].find('span', {'class' : 'class-room'}).text
+      print room
+      if room != None and room == 'ONLINE':
+        response_data['error'] = True
+        response_data['error_msg'] = 'Cannot add online classes!'
+        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
       c.build_code = classes[i].find('span', {'class' : 'building-code'}).text
 
       class_start = classes[i].find('span', {'class' : 'class-start-time'}).text

@@ -1,6 +1,13 @@
-/* Manually set map height */
-#map {
-    height: 690px;
+@media screen and (max-width: 1280px){
+    #map {
+        height: 615px;
+    }
+}
+
+@media screen and (min-width: 1280px){
+    #map {
+        height: 690px;
+    }
 }
 
 /* Fix for Bootstrap/Gmaps conflict */

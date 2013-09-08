@@ -33,12 +33,13 @@ def index(request):
 def SetHome(request):
     if request.method == 'POST':
         try:
-            profile = UserProfile()
-            profile.home = request.POST.get('user_home')
-            profile.user = request.user
-            profile.save()
+            profile = UserProfile.objects.get(user=request.user)
         except:
-            pass
+            profile = UserProfile()
+            profile.user = request.user
+            
+        profile.home = request.POST.get('user_home')
+        profile.save()
 
     return render(request, 'index.html', None, context_instance = RequestContext(request))
         

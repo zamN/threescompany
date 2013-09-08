@@ -3,7 +3,8 @@ from django.contrib import admin
 from UMagellan.models import Course, Spot
 
 class CourseAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'section', 'build_code', 'formatted_start_time', 'end_time', 'user')
+
 
 # class RouteAdmin(admin.ModelAdmin):
 #     pass

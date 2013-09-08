@@ -14,6 +14,9 @@
     <td>{{section}}</td>
     <td>{{build_code}}{{room_number}}</td>
     <td>
+        {{#ifEq tag ''}}
+            <span class="label label-info">Lec</span>
+        {{/ifEq}}
         {{#ifEq tag 'null'}}
             <span class="label label-info">Lec</span>
         {{/ifEq}}

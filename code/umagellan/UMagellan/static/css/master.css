@@ -24,7 +24,7 @@
 }
 
 /* Fix nav links misaligned */
-.top-navbar .nav li {
+.top-navbar .nav li, .top-navbar .btn-navbar {
     margin-top: 10px;
 }
 

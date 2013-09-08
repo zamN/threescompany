@@ -21,14 +21,15 @@ def index(request):
     routes = None
     spots = Spot.objects.filter(user = request.user.id)
     days = [('Monday', 'M'), ('Tuesday', 'Tu'), ('Wednesday', 'W'), ('Thursday', 'Th'), ('Friday', 'F') ]
-    
+    home = request.user.profile.home
+        
     try:
         user = User.objects.get(id=request.user.id)
     except:
         user = None
 
     return render_to_response('index.html', 
-        {'courses': courses, 'routes': routes, 'spots': spots, 'user': user, 'days': days}, 
+        {'courses': courses, 'routes': routes, 'spots': spots, 'user': user, 'days': days, 'home': home}, 
         context_instance = RequestContext(request))
 
 def SetHome(request):
@@ -85,6 +86,17 @@ def delete_course(request, course_id):
     except:
         pass # course doesn't exist
     return HttpResponse("Course deleted successfully") # redirect back to home page
+
+'''
+delete all courses related to the current user
+'''
+def delete_all_courses(request):
+    try:
+        courses = Course.objects.filter(user=request.user)
+        courses.delete()
+    except:
+        pass # course doesn't exist
+    return HttpResponse("All courses deleted successfully") # redirect back to home page
 
 '''
 add new course object to the database

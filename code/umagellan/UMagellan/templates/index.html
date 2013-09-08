@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}
     UMagellan
@@ -22,7 +23,7 @@
 
 {% block content %}
     <!-- Sidebar -->
-    <div class="span4 sidebar">
+    <div class="span3 sidebar">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#M" data-toggle="tab">Mon</a></li>
             <li><a href="#Tu" data-toggle="tab">Tue</a></li>
@@ -32,14 +33,21 @@
             <li><a href="#settings" data-toggle="tab"><i class="icon-cog"></i></a></li>
         </ul>
         <div class="tab-content">
-
             {% for day in days %}
                 {% if forloop.first %}
                 <div class="tab-pane active" id="{{ day.1 }}">
                 {% else %}
                 <div class="tab-pane" id="{{ day.1 }}">
                 {% endif %}
-                    <h3>{{ day.0 }}</h3>
+                    <h3>{{ day.0 }}
+                        <div class="starting-from">
+                            <img src="{% static 'img/mapMarkers/1A.png' %}" width="12" height="21" />
+                            Starting from <span class="user-home-loc">
+                              {{home}}
+                            </span>
+                        </div>
+                    </h3>
+
                     <div class="error-field">
                         <div class="alert alert-danger"></div>
                     </div>
@@ -47,9 +55,9 @@
                         <tr>
                             <th width="10%"></th>
                             <th width="25%">Name</th>
-                            <th width="15%">Section</th>
+                            <th width="10%">Sec</th>
                             <th width="25%">Room</th>
-                            <th width="15%">Type</th>
+                            <th width="10%">Type</th>
                             <th width="10%"></th>
                         </tr>
                     </table>
@@ -86,7 +94,7 @@
     </div>
 
     <!-- View content -->
-    <div class="span8 content">
+    <div class="span9 content">
         <div id="map" class="smallmap"></div>
     </div>
 {% endblock %}

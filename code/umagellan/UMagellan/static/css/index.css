@@ -3,7 +3,7 @@
     height: 690px;
 }
 
-/* Fix for Bootstrap conflict */
+/* Fix for Bootstrap/Gmaps conflict */
 #map img {
   max-width: none;
 }
@@ -12,10 +12,34 @@
   width: auto; display:inline; 
 }
 
-.sidebar-nav {
-    padding: 5px;
+.sidebar h3 {
+    margin: 0;
 }
 
-.courses-list {
-    list-style-type: none;
+.sidebar .tab-content {
+    padding-left: 10px;
+}
+
+.sidebar .tab-pane .rem-course {
+    color: #999;
+    font-weight: bold;
+}
+
+.sidebar .tab-pane .rem-course:hover {
+    text-decoration: none;
+}
+
+.sidebar .tab-pane .add-course input {
+    display: inline-block;
+    font-size: 8pt;
+}
+
+.sidebar .tab-pane .add-course input[type=text] {
+    margin: 0;
+    padding: 2px 5px 2px 5px;
+    width: 55px;
+}
+
+.sidebar .tab-pane .add-course a {
+    padding: 2px 5px 2px 5px;
 }

@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
 
+{% block title %}UMagellan - Register{% endblock %}
+
 {% block content %}
-{{ form.first_name }}
+	<style>
+		.fieldWrapper li {
+			color: red;
+		}
+	</style>
+
+	<h2>Create Account</h2>
+
+	<form action="{% url 'user_create_page' %}" method="post">
+		{% csrf_token %}
+		
+		{% for field in form %}
+	        <div class="fieldWrapper">
+	            {{ field.errors }}
+	            {{ field.label_tag }} {{ field }}
+	        </div>
+    	{% endfor %}
+
+		<input type="submit" class="btn btn-primary" value="Submit" />
+	</form>
 {% endblock %}

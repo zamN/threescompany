@@ -119,7 +119,7 @@ def add_course(request):
     response_data['courses'] = []
     for i in range(0, len(classes)):
       c = Course()
-      c.name = course
+      c.name = course.upper()
       c.section = section
       c.build_code = classes[i].find('span', {'class' : 'building-code'}).text
 

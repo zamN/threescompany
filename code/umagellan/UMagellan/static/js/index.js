@@ -97,7 +97,7 @@ $(function() {
 
       // Get the course coords.
       var points = [];
-      if (M.home.val() !== "") {
+      if (M.home.val()[0] !== '-') {
           points.push({
             p: getCoordsBy("name_long", $(".homes option:selected").val()),
             course: null
@@ -144,7 +144,13 @@ $(function() {
             data: $('#user_home').serialize(),
             success: function () {
                 $('.success-field').show();
-                M.home = $('.user_curr_home');
+                M.home.val($(".homes option:selected").val());
+                $(".user-home-loc").text(M.home.val());
+                if (M.home.val()[0] !== '-') {
+                  $(".starting-from").show();
+                } else {
+                  $(".starting-from").hide();
+                }
             }
         })
   });

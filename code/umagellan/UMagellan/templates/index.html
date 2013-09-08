@@ -23,7 +23,7 @@
 
 {% block content %}
     <!-- Sidebar -->
-    <div class="span3 sidebar">
+    <div class="span4 sidebar">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#M" data-toggle="tab">Mon</a></li>
             <li><a href="#Tu" data-toggle="tab">Tue</a></li>
@@ -40,18 +40,15 @@
                 <div class="tab-pane" id="{{ day.1 }}">
                 {% endif %}
                     <h3>{{ day.0 }}</h3>
-                    <div class="starting-from">
-                        {% ifequal home '' %}
-                            <div class="alert">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                You haven't set a home location!
-                            </div>
-                        {% else %}
-                            <img src="{% static 'img/mapMarkers/1A.png' %}" width="12" height="21" />
-                            Starting from <span class="user-home-loc">
-                              {{home}}
-                            </span>
-                        {% endifequal %}
+                    <div class="starting-from"
+                      {% if home|slice:":1" == '-' %}
+                        style="display:none;"
+                      {% endif %}
+                    >
+                      <img src="{% static 'img/mapMarkers/1A.png' %}" width="12" height="21" />
+                      Starting from <span class="user-home-loc">
+                        {{home}}
+                      </span>
                     </div>
 
                     <div class="error-field">
@@ -61,9 +58,9 @@
                         <tr>
                             <th width="10%"></th>
                             <th width="25%">Name</th>
-                            <th width="10%">Sec</th>
+                            <th width="15%">Section</th>
                             <th width="25%">Room</th>
-                            <th width="10%">Type</th>
+                            <th width="15%">Type</th>
                             <th width="10%"></th>
                         </tr>
                     </table>
@@ -100,7 +97,7 @@
     </div>
 
     <!-- View content -->
-    <div class="span9 content">
+    <div class="span8 content">
         <div id="map" class="smallmap"></div>
     </div>
 {% endblock %}

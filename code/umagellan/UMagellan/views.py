@@ -22,9 +22,7 @@ def index(request):
     spots = Spot.objects.filter(user = request.user.id)
     days = [('Monday', 'M'), ('Tuesday', 'Tu'), ('Wednesday', 'W'), ('Thursday', 'Th'), ('Friday', 'F') ]
     home = request.user.profile.home
-    
-    print type(home)
-    
+        
     try:
         user = User.objects.get(id=request.user.id)
     except:
@@ -89,8 +87,16 @@ def delete_course(request, course_id):
         pass # course doesn't exist
     return HttpResponse("Course deleted successfully") # redirect back to home page
 
+'''
+delete all courses related to the current user
+'''
 def delete_all_courses(request):
-    pass
+    try:
+        courses = Course.objects.filter(user=request.user)
+        courses.delete()
+    except:
+        pass # course doesn't exist
+    return HttpResponse("All courses deleted successfully") # redirect back to home page
 
 '''
 add new course object to the database
@@ -99,6 +105,7 @@ def add_course(request):
     course = request.GET.get('course')
     section = request.GET.get('section')
     response_data = {}
+    course_info = {}
     response_data['error'] = False
     response_data['error_msg'] = ''
 
@@ -176,7 +183,6 @@ def add_course(request):
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
       if Course.objects.filter(name=c.name, start_time=c.start_time, section_days=c.section_days, user=c.user).exists() != True:
         course_info = {}
-        course_info = {}
         course_info['name']         = c.name
         course_info['section']      = c.section
         course_info['build_code']   = c.build_code
@@ -191,10 +197,16 @@ def add_course(request):
         c.save()
         course_info['id']           = c.id
         response_data['courses'].append(course_info)
+        response_data['error'] = False
+        response_data['error_msg'] = ''
       else:
         response_data['error'] = True
         response_data['error_msg'] = 'That course already exists!'
-        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+        errorResponse = HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+    if response_data['error']:
+      if course_info == {}:
+        return errorResponse
 
     response_data['error'] = False
     response_data['error_msg'] = ''

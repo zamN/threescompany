@@ -53,14 +53,12 @@
 }
 
 .sidebar .starting-from {
-    display: inline-block;
-    float: right;
-    font-size: 11pt;
-    font-weight: normal;
+    margin: 5px 0 5px;
 }
 
 .sidebar .starting-from img {
     margin-right: 5px;
+    margin-left: 12px;
 }
 
 .marker-img img {

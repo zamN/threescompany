@@ -26,16 +26,9 @@
         <div class="navbar navbar-inverse navbar-fixed-top top-navbar">
             <div class="navbar-inner">
                 <div class="container-fluid">
-                    <!-- Expand button -->
-                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
                     <!-- Brand name -->
                     <a class="brand" href="#">
-                        <img src="{% static 'img/logo.png' %}" alt="UMagellan logo" width="150" />
+                        <img src="{% static 'img/logo.png' %}" alt="UMagellan logo" width="200" />
                     </a>
 
                     <!-- Nav links -->
@@ -46,8 +39,8 @@
                                 <!-- If user is logged in -->
                                 <ul class="nav">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle">Welcome, <span class="umagellan-user-name"></span> <b class="caret"></b></a>
-                                        <ul class="dropdown-menu" data-toggle="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <span class="umagellan-user-name"></span> <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
                                             <li><a href="#">Account</a></li>
                                             <li><a href="#">Logout</a></li>
                                         </ul>
@@ -58,10 +51,10 @@
                                 <!-- If user is not logged in -->
                                 <ul class="nav">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle">Welcome, Guest <b class="caret"></b></a>
-                                        <ul class="dropdown-menu" data-toggle="dropdown">
-                                            <li><a href="#">Login</a></li>
-                                            <li><a href="#">Register</a></li>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, Guest <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{% url 'user_login_page' %}">Login</a></li>
+                                            <li><a href="{% url 'user_create_page' %}">Register</a></li>
                                         </ul>
                                     </li>
                                 </ul>

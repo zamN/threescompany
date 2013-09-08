@@ -11,8 +11,16 @@
 }
 
 /* Fix navbar overlapping content */
-.main-content {
-    margin-top: 75px;
+@media screen and (min-width: 960px){
+    .main-content {
+        margin-top: 75px;
+    }   
+}
+
+@media screen and (max-width: 960px){
+    .main-content {
+        margin-top: 25px;
+    }   
 }
 
 /* Fix nav links misaligned */
@@ -22,6 +30,11 @@
 
 .top-navbar .nav li a {
     font-size: 15px;
+}
+
+/* Fix logo padding */
+.top-navbar .brand {
+    padding: 5px 0 5px 20px;
 }
 
 /* Fix fonts */

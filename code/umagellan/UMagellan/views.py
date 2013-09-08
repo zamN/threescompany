@@ -80,7 +80,6 @@ def add_course(request):
     response_data = {}
     response_data['error'] = False
     response_data['error_msg'] = ''
-    response_data['course'] = None
 
     print course
     print section
@@ -103,6 +102,11 @@ def add_course(request):
       response_data['error_msg'] = 'That course does not exist!'
       return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
+    if len(course) <= 4:
+      response_data['error'] = True
+      response_data['error_msg'] = 'That course does not exist!'
+      return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
     course_container = soup.find("div", {"class" : "courses-container"})
     first_block = course_container.find("div", {"class" : "course"}, {"id": course})
 
@@ -110,41 +114,55 @@ def add_course(request):
       response_data['error'] = True
       response_data['error_msg'] = 'That course does not exist!'
       return HttpResponse(json.dumps(response_data), mimetype="application/json")
-    else:
-      class_block = first_block.find('div', {'class' : 'class-days-container'})
-      classes = class_block.findAll('div', {'class' : 'row'})
-      for i in range(0, len(classes)):
-        c = Course()
-        c.name = course.upper()
-        c.section = section
-        c.build_code = classes[i].find('span', {'class' : 'building-code'}).text
 
-        class_start = classes[i].find('span', {'class' : 'class-start-time'}).text
-        c.start_time =  parser.parse(class_start)
+    class_block = first_block.find('div', {'class' : 'class-days-container'})
+    classes = class_block.findAll('div', {'class' : 'row'})
+    response_data['courses'] = []
+    for i in range(0, len(classes)):
+      c = Course()
+      c.name = course
+      c.section = section
+      c.build_code = classes[i].find('span', {'class' : 'building-code'}).text
 
-        class_end = classes[i].find('span', {'class' : 'class-end-time'}).text
-        c.end_time = parser.parse(class_end)
+      class_start = classes[i].find('span', {'class' : 'class-start-time'}).text
+      c.start_time =  parser.parse(class_start)
 
-        c.section_days = classes[i].find('span', {'class' : 'section-days'}).text
-        c.link = page_url
-        if classes[i].find('span', {'class' : 'class-type'}) != None:
-          c.disc = True
-        try:
-          c.user = User.objects.get(id = request.user.id)
-        except ObjectDoesNotExist:
-          response_data['error'] = True
-          response_data['error_msg'] = 'You must log in before adding courses!'
-          return HttpResponse(json.dumps(response_data), mimetype="application/json")
-        if Course.objects.filter(name=c.name, start_time=c.start_time, section_days=c.section_days, user=c.user).exists() != True:
-          c.save()
-        else:
-          response_data['error'] = True
-          response_data['error_msg'] = 'That course already exists!'
-          return HttpResponse(json.dumps(response_data), mimetype="application/json")
+      class_end = classes[i].find('span', {'class' : 'class-end-time'}).text
+      c.end_time = parser.parse(class_end)
+
+      c.section_days = classes[i].find('span', {'class' : 'section-days'}).text
+      c.link = page_url
+
+
+      if classes[i].find('span', {'class' : 'class-type'}) != None:
+        c.tag = classes[i].find('span', {'class' : 'class-type'}).text
+      try:
+        c.user = User.objects.get(id = request.user.id)
+      except ObjectDoesNotExist:
+        response_data['error'] = True
+        response_data['error_msg'] = 'User not logged in.'
+        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+      if Course.objects.filter(name=c.name, start_time=c.start_time, section_days=c.section_days, user=c.user).exists() != True:
+        course_info = {}
+        course_info = {}
+        course_info['name']         = c.name
+        course_info['section']      = c.section
+        course_info['build_code']   = c.build_code
+        course_info['start_time']   = c.start_time.strftime("%H:%M")
+        course_info['end_time']     = c.end_time.strftime("%H:%M")
+        course_info['section_days'] = c.section_days
+        course_info['user']         = c.user.username
+        course_info['link']         = c.link
+        course_info['tag']         = c.tag
+        response_data['courses'].append(course_info)
+        c.save()
+      else:
+        response_data['error'] = True
+        response_data['error_msg'] = 'Course already exists!'
+        return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     response_data['error'] = False
     response_data['error_msg'] = ''
-    response_data['course'] = c.name
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
 def get_course(request):
@@ -184,7 +202,7 @@ def get_course(request):
       course_info['section_days'] = r.section_days
       course_info['user']         = r.user.username
       course_info['link']         = r.link
-      course_info['disc']         = r.disc
+      course_info['tag']          = r.tag
       response_data['courses'].append(course_info)
       
 

@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block extra_scripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    <script src="/static/lib/chevron/chevron.js"></script>
     <script src="/static/lib/mousetrap/mousetrap.min.js"></script>
     <script src="/static/js/index.js"></script>
     <script src="/static/js/buildings.js"></script>
@@ -13,6 +15,10 @@
 
 {% block extra_stylesheets %}
     <link rel="stylesheet" href="/static/css/index.css" />
+{% endblock %}
+
+{% block extra_templates %}
+    <link id="course_template" rel="template" href="/static/templates/course_table_row.mustache" />
 {% endblock %}
 
 {% block content %}

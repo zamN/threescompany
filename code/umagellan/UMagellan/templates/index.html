@@ -16,37 +16,165 @@
 
 {% block content %}
     <!-- Sidebar -->
-    <div class="span2">
-        <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-                <h4>Courses</h4>
-                    <ul class="courses-list">
+    <div class="span3 sidebar">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#mon" data-toggle="tab">Mon</a></li>
+            <li><a href="#tue" data-toggle="tab">Tue</a></li>
+            <li><a href="#wed" data-toggle="tab">Wed</a></li>
+            <li><a href="#thu" data-toggle="tab">Thu</a></li>
+            <li><a href="#fri" data-toggle="tab">Fri</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="mon">
+                <h3>Monday</h3>
+                {% if courses %}
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Section</th>
+                            <th></th>
+                        </tr>
                         {% for course in courses %}
-                            <li>{{ course.name }} ({{ course.section }}) <a href="#" class="pull-right del-course">&times;</a></li>
+                            <tr>
+                                <td>{{ course.name }}</td>
+                                <td>{{ course.section }}</td>
+                                <td width="10%"><a href="" class="rem-course">&times;</a></td>
+                            </tr>
                         {% endfor %}
-                    </ul>
+                    </table>
                     <div class="add-course">
-                        <input type="text" name="course_name" placeholder="Course" />
-                        <input type="text" name="course_sec" placeholder="Section" />
-                        <a class="btn btn-primary btn-small save-course"><i class="icon-ok-sign icon-white"></i></a>
+                        <p class="muted">Add Course</p>
+                        <input type="text" name="name" class="name" placeholder="Name" />
+                        <input type="text" name="section" class="section" placeholder="Section" />
+                        <a href="#" class="btn btn-mini">
+                            <i class="icon-ok-sign"></i>
+                        </a>
                     </div>
-                
-                <h4>Routes</h4>
-                    {% for route in routes %}
-                        <li><a href="#">{{ route.name }}</a></li>
-                    {% endfor %}
-        
-                <h4>Spots</h4>
-                    {% for spot in spots %}
-                        <li><a href="#">{{ spot.name }}</a></li>
-                    {% endfor %}
-                    <li><a href="#">Add Spot</a></li>
-            </ul>
+                {% else %}
+                    <p class="muted">You haven't added any courses!</p>
+                {% endif %}
+            </div>
+            <div class="tab-pane" id="tue">
+                <h3>Tuesday</h3>
+                {% if courses %}
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Section</th>
+                            <th></th>
+                        </tr>
+                        {% for course in courses %}
+                            <tr>
+                                <td>{{ course.name }}</td>
+                                <td>{{ course.section }}</td>
+                                <td width="10%"><a href="" class="rem-course">&times;</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="add-course">
+                        <p class="muted">Add Course</p>
+                        <input type="text" name="name" class="name" placeholder="Name" />
+                        <input type="text" name="section" class="section" placeholder="Section" />
+                        <a href="#" class="btn btn-mini">
+                            <i class="icon-ok-sign"></i>
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="muted">You haven't added any courses!</p>
+                {% endif %}
+            </div>
+            <div class="tab-pane" id="wed">
+                <h3>Wednesday</h3>
+                {% if courses %}
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Section</th>
+                            <th></th>
+                        </tr>
+                        {% for course in courses %}
+                            <tr>
+                                <td>{{ course.name }}</td>
+                                <td>{{ course.section }}</td>
+                                <td width="10%"><a href="" class="rem-course">&times;</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="add-course">
+                        <p class="muted">Add Course</p>
+                        <input type="text" name="name" class="name" placeholder="Name" />
+                        <input type="text" name="section" class="section" placeholder="Section" />
+                        <a href="#" class="btn btn-mini">
+                            <i class="icon-ok-sign"></i>
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="muted">You haven't added any courses!</p>
+                {% endif %}
+            </div>
+            <div class="tab-pane" id="thu">
+                <h3>Thursday</h3>
+                {% if courses %}
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Section</th>
+                            <th></th>
+                        </tr>
+                        {% for course in courses %}
+                            <tr>
+                                <td>{{ course.name }}</td>
+                                <td>{{ course.section }}</td>
+                                <td width="10%"><a href="" class="rem-course">&times;</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="add-course">
+                        <p class="muted">Add Course</p>
+                        <input type="text" name="name" class="name" placeholder="Name" />
+                        <input type="text" name="section" class="section" placeholder="Section" />
+                        <a href="#" class="btn btn-mini">
+                            <i class="icon-ok-sign"></i>
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="muted">You haven't added any courses!</p>
+                {% endif %}
+            </div>
+            <div class="tab-pane" id="fri">
+                <h3>Friday</h3>
+                {% if courses %}
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Section</th>
+                            <th></th>
+                        </tr>
+                        {% for course in courses %}
+                            <tr>
+                                <td>{{ course.name }}</td>
+                                <td>{{ course.section }}</td>
+                                <td width="10%"><a href="" class="rem-course">&times;</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="add-course">
+                        <p class="muted">Add Course</p>
+                        <input type="text" name="name" class="name" placeholder="Name" />
+                        <input type="text" name="section" class="section" placeholder="Section" />
+                        <a href="#" class="btn btn-mini">
+                            <i class="icon-ok-sign"></i>
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="muted">You haven't added any courses!</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 
     <!-- View content -->
-    <div class="span10">
+    <div class="span9 content">
         <div id="map" class="smallmap"></div>
     </div>
 {% endblock %}

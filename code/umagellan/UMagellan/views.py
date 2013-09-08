@@ -35,7 +35,7 @@ class UserCreate(View):
         if form.is_valid():
             cd = form.cleaned_data
             try:
-                user = User.objects.get(id=request.user.id)
+                user = User.objects.get(id = request.user.id)
             except:
                 user = User()
                 

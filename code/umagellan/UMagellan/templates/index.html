@@ -39,11 +39,12 @@
                 {% else %}
                 <div class="tab-pane" id="{{ day.1 }}">
                 {% endif %}
-                    <h3>{{ day.0 }}</h3>
-                    <div class="starting-from">
-                        <img src="{% static 'img/mapMarkers/1A.png' %}" width="12" height="21" />
-                        Starting from <span class="user-home-loc"></span>
-                    </div>
+                    <h3>{{ day.0 }} 
+                        <div class="starting-from">
+                            <img src="{% static 'img/mapMarkers/1A.png' %}" width="12" height="21" />
+                            Starting from <span class="user-home-loc"></span>
+                        </div>
+                    </h3>
                     
                     <div class="error-field">
                         <div class="alert alert-danger"></div>

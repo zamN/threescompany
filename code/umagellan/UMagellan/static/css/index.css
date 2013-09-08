@@ -52,6 +52,17 @@
     margin-bottom: 20px;
 }
 
+.sidebar .starting-from {
+    display: inline-block;
+    float: right;
+    font-size: 11pt;
+    font-weight: normal;
+}
+
+.sidebar .starting-from img {
+    margin-right: 5px;
+}
+
 .marker-img img {
     display: block;
     margin: 0 auto;

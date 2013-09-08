@@ -11,7 +11,7 @@ class Course(models.Model):
     end_time = models.DateTimeField(blank=True)
     section_days = models.CharField(max_length=10)
     user = models.ForeignKey(User, related_name = 'users_courses')
-    disc = models.BooleanField(default=False)
+    tag = models.CharField(max_length=56)
     link = models.CharField(max_length=1024)
     def __unicode__(self):
       return self.name

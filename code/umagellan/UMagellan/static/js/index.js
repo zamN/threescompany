@@ -52,7 +52,7 @@ $(function() {
       // Get the course coords.
       var points = [];
       if ($(user_curr_home).val() !== "") {
-          points.push(getCoordsBy("name_short", $(".homes option:selected").val()));
+          points.push(getCoordsBy("name_long", $(".homes option:selected").val()));
       }
       courses$.each(function(i, course) {
           points.push(
@@ -80,9 +80,9 @@ $(function() {
   $.each(BUILDINGS, function(i, b) {
     if(b.name_short.length != 0) {
       if(b.name_short == user_curr_home) {
-        $('.homes').append('<option value="' + b.name_short + '" selected>' + b.name_long + '</option>');
+        $('.homes').append('<option selected>' + b.name_long + '</option>');
       } else {
-        $('.homes').append('<option value="' + b.name_short + '">' + b.name_long + '</option>');
+        $('.homes').append('<option >' + b.name_long + '</option>');
       }
     }
   });

@@ -40,7 +40,7 @@
                         </tr>
                         {% for course in courses %}
                             <tr>
-                                <td>{{ course.name }}</td>
+                                <td><a href="{{ course.link }}">{{ course.name }}</a>{% if course.disc %}(D){% endif %}</td>
                                 <td>{{ course.section }}</td>
                                 <td><a href="#" class="rem-course" course_id="{{ course.id }}">&times;</a></td>
                             </tr>

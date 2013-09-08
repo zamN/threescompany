@@ -115,7 +115,7 @@ def add_course(request):
       classes = class_block.findAll('div', {'class' : 'row'})
       for i in range(0, len(classes)):
         c = Course()
-        c.name = course
+        c.name = course.upper()
         c.section = section
         c.build_code = classes[i].find('span', {'class' : 'building-code'}).text
 

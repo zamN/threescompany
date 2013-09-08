@@ -16,12 +16,19 @@ def index(request):
     courses = Course.objects.filter(user = request.user.id)
     routes = None
     spots = Spot.objects.filter(user = request.user.id)
+    
+    try:
+        user = User.objects.get(id=request.user.id)
+    except:
+        user = None
 
     return render_to_response('index.html', 
-        {'courses': courses, 'routes': routes, 'spots': spots}, 
+        {'courses': courses, 'routes': routes, 'spots': spots, 'user': user}, 
         context_instance = RequestContext(request))
-    
-# form to create/register new user
+
+'''    
+form to create/register new user
+'''
 class UserCreate(View):
     form_class = UserForm
     template_name = 'user_create.html'
@@ -45,7 +52,7 @@ class UserCreate(View):
             user.password = cd['password']
             user.save()
                 
-            return HttpResponse("User created successfully.")
+            return HttpResponseRedirect('home')
 
         return render(request, self.template_name, {'form': form})
         context_instance = RequestContext(request)

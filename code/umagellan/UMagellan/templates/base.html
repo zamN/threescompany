@@ -36,30 +36,24 @@
                     <div class="nav-collapse collapse">
                         <!-- User links -->
                         <div class="user-links pull-right">
-                            <span class="logged-in">
-                                <!-- If user is logged in -->
-                                <ul class="nav">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <span class="umagellan-user-name"></span> <b class="caret"></b></a>
+                            <!-- If user is logged in -->
+                            <ul class="nav">
+                                <li class="dropdown">
+                                    {% if user %}
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ user.username }} <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Account</a></li>
-                                            <li><a href="#">Logout</a></li>
+                                            <!--<li><a href="#">Account</a></li>-->
+                                            <li><a href="{% url 'user_logout_page' %}">Logout</a></li>
                                         </ul>
-                                    </li>
-                                </ul>
-                            </span>
-                            <span class="not-logged-in">
-                                <!-- If user is not logged in -->
-                                <ul class="nav">
-                                    <li class="dropdown">
+                                    {% else %}
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, Guest <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="{% url 'user_login_page' %}">Login</a></li>
-                                            <li><a href="{% url 'user_create_page' %}">Register</a></li>
+                                            <!--<li><a href="{% url 'user_create_page' %}">Register</a></li>-->
                                         </ul>
-                                    </li>
-                                </ul>
-                            </span>
+                                    {% endif %}
+                                </li>
+                        	</ul>
                         </div>
                     </div>
                 </div>

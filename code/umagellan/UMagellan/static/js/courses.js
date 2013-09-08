@@ -75,8 +75,9 @@ $(function() {
         saveCourse(e);
     });
 
-    $.get('/get_courses', function(data) {
-      addCoursesToHTML(data.courses);
+    $.get('/get_courses', function(data, status) {
+        if (status === "success")
+            addCoursesToHTML(data.courses);
     });
 
     remCourseEvents();

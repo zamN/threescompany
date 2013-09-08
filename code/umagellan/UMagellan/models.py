@@ -13,6 +13,7 @@ class Course(models.Model):
     name = models.CharField(max_length=56)
     section = models.CharField(max_length=4)
     build_code = models.CharField(max_length=3)
+    room_number = models.CharField(max_length=12)
     start_time = models.DateTimeField(blank=True)
     end_time = models.DateTimeField(blank=True)
     section_days = models.CharField(max_length=10)

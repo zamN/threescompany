@@ -39,9 +39,10 @@
                 </div>
                 <table class="table table-striped">
                     <tr>
-                        <th width="30%">Name</th>
-                        <th width="20%">Type</th>
-                        <th width="40%">Section</th>
+                        <th width="25%">Name</th>
+                        <th width="25%">Room</th>
+                        <th width="25%">Section</th>
+                        <th width="15%">Type</th>
                         <th width="10%"></th>
                     </tr>
                 </table>
@@ -61,9 +62,10 @@
                 </div>
                 <table class="table table-striped">
                     <tr>
-                        <th width="30%">Name</th>
-                        <th width="20%">Type</th>
-                        <th width="40%">Section</th>
+                        <th width="25%">Name</th>
+                        <th width="25%">Room</th>
+                        <th width="25%">Section</th>
+                        <th width="15%">Type</th>
                         <th width="10%"></th>
                     </tr>
                 </table>
@@ -83,9 +85,10 @@
                 </div>
                 <table class="table table-striped">
                     <tr>
-                        <th width="30%">Name</th>
-                        <th width="20%">Type</th>
-                        <th width="40%">Section</th>
+                        <th width="25%">Name</th>
+                        <th width="25%">Room</th>
+                        <th width="25%">Section</th>
+                        <th width="15%">Type</th>
                         <th width="10%"></th>
                     </tr>
                 </table>
@@ -105,9 +108,10 @@
                 </div>
                 <table class="table table-striped">
                     <tr>
-                        <th width="30%">Name</th>
-                        <th width="20%">Type</th>
-                        <th width="40%">Section</th>
+                        <th width="25%">Name</th>
+                        <th width="25%">Room</th>
+                        <th width="25%">Section</th>
+                        <th width="15%">Type</th>
                         <th width="10%"></th>
                     </tr>
                 </table>
@@ -127,9 +131,10 @@
                 </div>
                 <table class="table table-striped">
                     <tr>
-                        <th width="30%">Name</th>
-                        <th width="20%">Type</th>
-                        <th width="40%">Section</th>
+                        <th width="25%">Name</th>
+                        <th width="25%">Room</th>
+                        <th width="25%">Section</th>
+                        <th width="15%">Type</th>
                         <th width="10%"></th>
                     </tr>
                 </table>
@@ -144,6 +149,12 @@
             </div>
             <div class="tab-pane" id="settings">
                 <h3>Settings</h3>
+                <div class="success-field">
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        Your changes have been saved!
+                    </div>                    
+                </div>
                 <form id="user_home" action="{% url 'set_user_home' %}" method="post">
                     {% csrf_token %}
                     <div>

@@ -4,6 +4,8 @@ window.M = {
 };
 
 $(function() {
+  $('.success-field').hide();
+
   M.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 18,
     center: getCoordsBy('name_short', 'MKM'),
@@ -119,6 +121,7 @@ $(function() {
             url: '/user/sethome/',
             data: $('#user_home').serialize(),
             success: function () {
+                $('.success-field').show();
             }
         })
   });

@@ -4,12 +4,14 @@
     data-start_time="{{start_time}}"
     data-end_time="{{end_time}}"
     data-build_code="{{build_code}}"
+    data-room_number="{{room_number}}"
     data-section_days="{{section_days}}"
     data-link="{{link}}"
     data-tag="{{tag}}" >
 
-    <td><a href="{{ link }}">{{ name }}</a></td>
+    <td><a href="{{ link }}">{{name}}</a></td>
     <td>{{section}}</td>
+    <td>{{build_code}}{{room_number}}</td>
     <td>
         {{#ifEq tag 'null'}}
             <span class="label label-info">Lec</span>

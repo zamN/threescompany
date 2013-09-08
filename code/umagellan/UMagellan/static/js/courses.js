@@ -55,7 +55,7 @@ $(function() {
                 $.ajax({
                     url: '/delete_course/' + $(this).attr('course_id')
                 }).done(function() {
-                  $(x).remove();
+                  $(".tab-pane table tr."+$(x).attr("data-course")).remove();
                   M.initRoutes()
                 });
             });

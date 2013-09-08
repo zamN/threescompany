@@ -21,7 +21,12 @@ def index(request):
     routes = None
     spots = Spot.objects.filter(user = request.user.id)
     days = [('Monday', 'M'), ('Tuesday', 'Tu'), ('Wednesday', 'W'), ('Thursday', 'Th'), ('Friday', 'F') ]
-    home = request.user.profile.home
+    
+    # if user is logged in, try to get their home location
+    if request.user.is_authenticated():
+        home = request.user.profile.home
+    else:
+        home = ''
         
     try:
         user = User.objects.get(id=request.user.id)

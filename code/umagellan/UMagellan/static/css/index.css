@@ -1,15 +1,3 @@
-@media screen and (max-width: 1280px){
-    #map {
-        height: 615px;
-    }
-}
-
-@media screen and (min-width: 1280px){
-    #map {
-        height: 690px;
-    }
-}
-
 /* Fix for Bootstrap/Gmaps conflict */
 #map img {
   max-width: none;
@@ -53,4 +41,8 @@
 
 .sidebar .tab-pane .add-course a {
     padding: 2px 5px 2px 5px;
+}
+
+.sidebar .add-course {
+    margin-bottom: 10px;
 }

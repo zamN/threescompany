@@ -40,13 +40,17 @@ $(function() {
   M.initRoutes = function(paneID) {
       if (paneID === null || paneID === undefined)
           paneID = $(".tab-pane.active").attr("id");
-      var courses = [];
+
+      // Sort by time.
       var courses$ = $("#"+paneID+".tab-pane .course-row");
       courses$.sort(function(a, b) {
         var aTime = Date.parse('01/01/2011 '+$(a).attr("data-start_time")+':00');
         var bTime = Date.parse('01/01/2011 '+$(b).attr("data-start_time")+':00');
         return aTime > bTime;
       });
+
+      // Get the course coords.
+      var courses = [];
       courses$.each(function(i, course) {
           courses.push(
               getCoordsBy("name_short", $(course).attr("data-build_code"))
@@ -56,14 +60,16 @@ $(function() {
       // Clear the map
       directionsDisplay.set("directions", null);
       // If there are two or more courses, display their routes.
-      if (courses.length >= 2)
+      if (courses.length >= 2) {
           displayRoute(courses);
       // Otherewise, reset the map to Mckeldin Mall.
-      else
+      } else {
+          M.map.setZoom(16);
           M.map.panTo(getCoordsBy('name_short', 'MKM'));
+      }
   }
 
-  $(".nav-tabs a").mouseup(function() {
+  $(".nav-tabs a:not(:last)").mouseup(function() {
       M.initRoutes($(this).attr("href").slice(1));
   });
 

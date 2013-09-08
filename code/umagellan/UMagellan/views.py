@@ -146,7 +146,6 @@ def add_course(request):
 def get_course(request):
     course = request.GET.get('course')
     section = request.GET.get('section')
-    user = request.GET.get('user')
     response_data = {}
 
     if len(section) != 4:
@@ -160,7 +159,7 @@ def get_course(request):
     print course
     print section
     try:
-      resp = Course.objects.filter(name=course, section=section, user=User.objects.get(username__exact=user))
+      resp = Course.objects.filter(name=course, section=section, user=User.objects.get(id = request.user.id))
     except ObjectDoesNotExist:
       response_data['error'] = True
       response_data['error_msg'] = 'Username does not exist.'

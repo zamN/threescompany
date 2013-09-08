@@ -7,6 +7,7 @@
 {% block extra_scripts %}
     <script src="/static/js/index.js"></script>
     <script src="/static/js/buildings.js"></script>
+    <script src="/static/js/courses.js"></script>
 {% endblock %}
 
 {% block extra_stylesheets %}
@@ -18,19 +19,24 @@
     <div class="span2">
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                <li class="nav-header">Courses</li>
+                <h4>Courses</h4>
                     <ul class="courses-list">
                         {% for course in courses %}
-                            <li>{{ course.name }}-{{ course.section }} <a href="#" class="pull-right">&times;</a></li>
+                            <li>{{ course.name }} ({{ course.section }}) <a href="#" class="pull-right del-course">&times;</a></li>
                         {% endfor %}
                     </ul>
+                    <div class="add-course">
+                        <input type="text" name="course_name" placeholder="Course" />
+                        <input type="text" name="course_sec" placeholder="Section" />
+                        <a class="btn btn-primary btn-small save-course"><i class="icon-ok-sign icon-white"></i></a>
+                    </div>
                 
-                <li class="nav-header">Routes</li>
+                <h4>Routes</h4>
                     {% for route in routes %}
                         <li><a href="#">{{ route.name }}</a></li>
                     {% endfor %}
         
-                <li class="nav-header">Spots</li>
+                <h4>Spots</h4>
                     {% for spot in spots %}
                         <li><a href="#">{{ spot.name }}</a></li>
                     {% endfor %}

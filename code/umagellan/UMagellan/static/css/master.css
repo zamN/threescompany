@@ -36,8 +36,3 @@
 .top-navbar .brand {
     padding: 5px 0 5px 20px;
 }
-
-/* Fix fonts */
-h1, p {
-    font-family: Univers;
-}

@@ -16,6 +16,43 @@
     padding: 5px;
 }
 
-.courses-list {
+.sidebar-nav h4 {
+    color: #555;
+}
+
+.sidebar-nav .courses-list {
+    color: #555;
     list-style-type: none;
+    margin-left: 0;
+}
+
+.sidebar-nav .del-course {
+    color: #555;
+}
+
+.sidebar-nav .del-course:hover {
+    text-decoration: none;
+}
+
+.sidebar-nav .add-course {
+    margin-top: 5px;
+}
+
+.sidebar-nav .add-course input {
+    font-size: 8pt;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+}
+
+.sidebar-nav .add-course input[type=text] {
+    padding: 2px 5px 2px 5px;
+}
+
+.sidebar-nav .add-course input[name=course_name] {
+    width: 60px;
+}
+
+.sidebar-nav .add-course input[name=course_sec] {
+    width: 45px;
 }

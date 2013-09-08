@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext, loader
 from UMagellan.models import Course, Spot
@@ -57,9 +57,22 @@ class UserCreate(View):
                 
             return HttpResponseRedirect('home')
 
-        return render(request, self.template_name, {'form': form})
-        context_instance = RequestContext(request)
+        return render(request, self.template_name, {'form': form}, context_instance = RequestContext(request))
 
+'''
+delete a course object from the database
+'''
+def delete_course(request, course_id):
+    try:
+        course = Course.objects.get(id=course_id)
+        course.delete()
+    except:
+        pass # course doesn't exist
+    return HttpResponse("Course deleted successfully") # redirect back to home page
+
+'''
+add new course object to the database
+'''
 def add_course(request):
     course = request.GET.get('course')
     section = request.GET.get('section')

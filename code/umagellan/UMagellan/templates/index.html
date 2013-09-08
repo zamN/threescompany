@@ -32,6 +32,7 @@
             <li><a href="#settings" data-toggle="tab"><i class="icon-cog"></i></a></li>
         </ul>
         <div class="tab-content">
+
             {% for day in days %}
                 {% if forloop.first %}
                 <div class="tab-pane active" id="{{ day.1 }}">
@@ -44,8 +45,9 @@
                     </div>
                     <table class="table table-striped">
                         <tr>
+                            <th width="10%"></th>
                             <th width="25%">Name</th>
-                            <th width="25%">Section</th>
+                            <th width="15%">Section</th>
                             <th width="25%">Room</th>
                             <th width="15%">Type</th>
                             <th width="10%"></th>
@@ -61,121 +63,7 @@
                     </div>
                 </div>
             {% endfor %}
-            <!-- <div class="tab-pane active" id="M">
-                <h3>Monday</h3>
-                <div class="error-field">
-                    <div class="alert alert-danger"></div>
-                </div>
-                <table class="table table-striped">
-                    <tr>
-                        <th width="25%">Name</th>
-                        <th width="25%">Section</th>
-                        <th width="25%">Room</th>
-                        <th width="15%">Type</th>
-                        <th width="10%"></th>
-                    </tr>
-                </table>
-                <div class="add-course">
-                    <p class="muted">Add Course</p>
-                    <input type="text" name="name" class="name-field" placeholder="Name" />
-                    <input type="text" name="section" class="section-field" placeholder="Section" />
-                    <a href="#" class="btn btn-mini save-course">
-                        <i class="icon-ok-sign"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="tab-pane" id="Tu">
-                <h3>Tuesday</h3>
-                <div class="error-field">
-                    <div class="alert alert-danger"></div>
-                </div>
-                <table class="table table-striped">
-                    <tr>
-                        <th width="25%">Name</th>
-                        <th width="25%">Room</th>
-                        <th width="25%">Section</th>
-                        <th width="15%">Type</th>
-                        <th width="10%"></th>
-                    </tr>
-                </table>
-                <div class="add-course">
-                    <p class="muted">Add Course</p>
-                    <input type="text" name="name" class="name-field" placeholder="Name" />
-                    <input type="text" name="section" class="section-field" placeholder="Section" />
-                    <a href="#" class="btn btn-mini save-course">
-                        <i class="icon-ok-sign"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="tab-pane" id="W">
-                <h3>Wednesday</h3>
-                <div class="error-field">
-                    <div class="alert alert-danger"></div>
-                </div>
-                <table class="table table-striped">
-                    <tr>
-                        <th width="25%">Name</th>
-                        <th width="25%">Room</th>
-                        <th width="25%">Section</th>
-                        <th width="15%">Type</th>
-                        <th width="10%"></th>
-                    </tr>
-                </table>
-                <div class="add-course">
-                    <p class="muted">Add Course</p>
-                    <input type="text" name="name" class="name-field" placeholder="Name" />
-                    <input type="text" name="section" class="section-field" placeholder="Section" />
-                    <a href="#" class="btn btn-mini save-course">
-                        <i class="icon-ok-sign"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="tab-pane" id="Th">
-                <h3>Thursday</h3>
-                <div class="error-field">
-                    <div class="alert alert-danger"></div>
-                </div>
-                <table class="table table-striped">
-                    <tr>
-                        <th width="25%">Name</th>
-                        <th width="25%">Room</th>
-                        <th width="25%">Section</th>
-                        <th width="15%">Type</th>
-                        <th width="10%"></th>
-                    </tr>
-                </table>
-                <div class="add-course">
-                    <p class="muted">Add Course</p>
-                    <input type="text" name="name" class="name-field" placeholder="Name" />
-                    <input type="text" name="section" class="section-field" placeholder="Section" />
-                    <a href="#" class="btn btn-mini save-course">
-                        <i class="icon-ok-sign"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="tab-pane" id="F">
-                <h3>Friday</h3>
-                <div class="error-field">
-                    <div class="alert alert-danger"></div>
-                </div>
-                <table class="table table-striped">
-                    <tr>
-                        <th width="25%">Name</th>
-                        <th width="25%">Room</th>
-                        <th width="25%">Section</th>
-                        <th width="15%">Type</th>
-                        <th width="10%"></th>
-                    </tr>
-                </table>
-                <div class="add-course">
-                    <p class="muted">Add Course</p>
-                    <input type="text" name="name" class="name-field" placeholder="Name" />
-                    <input type="text" name="section" class="section-field" placeholder="Section" />
-                    <a href="#" class="btn btn-mini save-course">
-                        <i class="icon-ok-sign"></i>
-                    </a>
-                </div>
-            </div> -->
+
             <div class="tab-pane" id="settings">
                 <h3>Settings</h3>
                 <div class="success-field">

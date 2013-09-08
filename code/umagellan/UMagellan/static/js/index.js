@@ -21,16 +21,20 @@ $(function() {
   });
 
   function setMarkers(points) {
-      console.log(points);
       points.map(function(p, i) {
-          M.markers.push(new google.maps.Marker({
-              map: M.map,
-              position: p,
-              icon: "/static/img/mapMarkers/"
+          var icon = "/static/img/mapMarkers/"
                     +(i+1)
                     +"ABCDEFG"[i]
-                    +".png"
+                    +".png";
+          M.markers.push(new google.maps.Marker({
+              map: M.map,
+              position: p.p,
+              icon: icon,
+              course: p.course
           }));
+          $(p.course).find(".marker-img").html(
+            "<img width='12' height='21' src="+icon+" />"
+          );
       });
   }
 
@@ -39,23 +43,24 @@ $(function() {
       M.markers.map(function(m) {
           m.setMap(null);
       });
+      $(".marker-img img").remove();
       M.markers = [];
   }
 
-  function displayRoute(points) {
+  function displayRoute(ps) {
     // If two points of the same location exist in a row, move one.
-    for (var i=0; (i+1) < points.length; i++) {
-      if ((points[i].ob === points[i+1].ob) &&
-          (points[i].cb === points[i+1].cb)) {
-        points[i+1].ob += (randomSign()*0.0001);
-        points[i+1].cb += (randomSign()*0.0001);
+    for (var i=0; (i+1) < ps.length; i++) {
+      if ((ps[i].p.ob === ps[i+1].p.ob) &&
+          (ps[i].p.cb === ps[i+1].p.cb)) {
+        ps[i+1].p.ob += (randomSign()*0.0001);
+        ps[i+1].p.cb += (randomSign()*0.0001);
       }
     }
     var request = {
-      origin: points[0],
-      destination: points[points.length-1],
-      waypoints: points.slice(1, -1).map(function(c) {
-        return { location: c }
+      origin: ps[0].p,
+      destination: ps[ps.length-1].p,
+      waypoints: ps.slice(1, -1).map(function(c) {
+        return { location: c.p }
       }),
       travelMode: google.maps.DirectionsTravelMode.WALKING,
     };
@@ -63,7 +68,7 @@ $(function() {
       if (status == google.maps.DirectionsStatus.OK) {
         resetMap();
         directionsDisplay.setDirections(response);
-        setMarkers(points);
+        setMarkers(ps);
       } else { alert ('Failed to route!'); }
     });
   }
@@ -91,12 +96,16 @@ $(function() {
       // Get the course coords.
       var points = [];
       if (M.home.val() !== "") {
-          points.push(getCoordsBy("name_long", $(".homes option:selected").val()));
+          points.push({
+            p: getCoordsBy("name_long", $(".homes option:selected").val()),
+            course: null
+          });
       }
       courses$.each(function(i, course) {
-          points.push(
-              getCoordsBy("name_short", $(course).attr("data-build_code"))
-          );
+          points.push({
+            p: getCoordsBy("name_short", $(course).attr("data-build_code")),
+            course: course
+          });
       });
 
       resetMap();

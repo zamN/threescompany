@@ -261,7 +261,6 @@ def fill_table(table, resp):
 
 def split_days(table, section_days):
     for i in range(0, len(section_days)):
-      print i
       if i+1 < len(section_days) and section_days[i+1].islower():
         table.append(section_days[i] + section_days[i+1])
         i += 2

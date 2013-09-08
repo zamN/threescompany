@@ -144,7 +144,7 @@
             </div>
             <div class="tab-pane" id="settings">
                 <h3>Settings</h3>
-                <form action="{% url 'set_user_home' %}" method="post">
+                <form id="user_home" action="{% url 'set_user_home' %}" method="post">
                     {% csrf_token %}
                     <div>
                         <label for="home">Home</label>

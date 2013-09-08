@@ -86,6 +86,7 @@
                         Your changes have been saved!
                     </div>
                 </div>
+
                 <form id="user_home" action="{% url 'set_user_home' %}" method="post">
                     {% csrf_token %}
                     <div>
@@ -96,7 +97,7 @@
                     </div>
                 </form>
 
-                <div>
+                <div style="margin-bottom: 20px;">
                     <p>Clear courses <strong>(cannot be undone!)</strong></p>
                     <a href="{% url 'delete_all_courses' %}" class="btn btn-danger">Clear all courses</a>
                 </div>

@@ -153,9 +153,10 @@ def add_course(request):
         course_info['section_days'] = c.section_days
         course_info['user']         = c.user.username
         course_info['link']         = c.link
-        course_info['tag']         = c.tag
-        response_data['courses'].append(course_info)
+        course_info['tag']          = c.tag
         c.save()
+        course_info['id']           = c.id
+        response_data['courses'].append(course_info)
       else:
         response_data['error'] = True
         response_data['error_msg'] = 'Course already exists!'

@@ -10,15 +10,15 @@
 
     <td><a href="{{ link }}">{{ name }}</a></td>
     <td>
-        {{#ifCond tag ''}}
+        {{#ifEq tag 'null'}}
             <span class="label label-info">Lec</span>
-        {{/ifCond}}
-        {{#ifCond tag 'Discussion'}}
+        {{/ifEq}}
+        {{#ifEq tag 'Discussion'}}
             <span class="label">Disc</span>
-        {{/ifCond}}
-        {{#ifCond tag 'Lab'}}
+        {{/ifEq}}
+        {{#ifEq tag 'Lab'}}
             <span class="label label-warning">Lab</span>
-        {{/ifCond}}
+        {{/ifEq}}
     </td>
     <td>{{section}}</td>
     <td><a href="#" class="rem-course" course_id="{{id}}">&times;</a></td>

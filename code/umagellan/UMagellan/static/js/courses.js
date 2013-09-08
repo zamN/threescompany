@@ -1,5 +1,5 @@
-Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-    if(v1 === v2) {
+Handlebars.registerHelper('ifEq', function(v1, v2, options) {
+    if(v1 === v2 || (v1 === null && v2 === 'null')) {
       return options.fn(this);
     }
   return options.inverse(this);

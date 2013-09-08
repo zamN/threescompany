@@ -94,8 +94,9 @@ def add_course(request):
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
 
-    test = urllib2.urlopen("https://ntst.umd.edu/soc/all-courses-search.html?course=" + course + "&section=" + section + "&term=201308&level=ALL&time=12%3A00+PM&center=ALL").read()
-    soup = BeautifulSoup(test)
+    page_url = "https://ntst.umd.edu/soc/all-courses-search.html?course=" + course + "&section=" + section + "&term=201308&level=ALL"
+    page = urllib2.urlopen(page_url).read()
+    soup = BeautifulSoup(page)
 
     if soup.find("div", {"class" : "no-courses-message"}) != None:
       response_data['error'] = True
@@ -125,13 +126,16 @@ def add_course(request):
         c.end_time = parser.parse(class_end)
 
         c.section_days = classes[i].find('span', {'class' : 'section-days'}).text
+        c.link = page_url
+        if classes[i].find('span', {'class' : 'class-type'}) != None:
+          c.disc = True
         try:
           c.user = User.objects.get(id = request.user.id)
         except ObjectDoesNotExist:
           response_data['error'] = True
           response_data['error_msg'] = 'User not logged in.'
           return HttpResponse(json.dumps(response_data), mimetype="application/json")
-        if Course.objects.filter(name=c.name, start_time=c.start_time, user=c.user).exists() != True:
+        if Course.objects.filter(name=c.name, start_time=c.start_time, section_days=c.section_days, user=c.user).exists() != True:
           c.save()
         else:
           response_data['error'] = True
@@ -140,12 +144,7 @@ def add_course(request):
 
     response_data['error'] = False
     response_data['error_msg'] = ''
-    response_data['course-name'] = c.name
-    response_data['course-section'] = c.section
-    response_data['course-build_code'] = c.build_code
-    response_data['course-start_time'] = c.start_time.strftime('%H:%M')
-    response_data['course-end_time'] = c.end_time.strftime('%H:%M')
-    response_data['course-section_days'] = c.section_days
+    response_data['course'] = c.name
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
 def get_course(request):
@@ -161,8 +160,6 @@ def get_course(request):
         response_data['error_msg'] = 'Section ID is Invalid!'
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
-    print course
-    print section
     try:
       resp = Course.objects.filter(name=course, section=section, user=User.objects.get(id = request.user.id))
     except ObjectDoesNotExist:
@@ -186,6 +183,8 @@ def get_course(request):
       course_info['end_time']     = r.end_time.strftime("%H:%M")
       course_info['section_days'] = r.section_days
       course_info['user']         = r.user.username
+      course_info['link']         = r.link
+      course_info['disc']         = r.disc
       response_data['courses'].append(course_info)
       
 

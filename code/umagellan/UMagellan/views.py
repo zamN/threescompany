@@ -244,6 +244,7 @@ def fill_table(table, resp):
       course_info['user']         = r.user.username
       course_info['link']         = r.link
       course_info['tag']          = r.tag
+      course_info['id']           = r.id
       table['courses'].append(course_info)
 
 def split_days(table, section_days):

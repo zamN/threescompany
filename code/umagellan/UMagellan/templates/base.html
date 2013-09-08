@@ -38,6 +38,13 @@
                         <img src="{% static 'img/logo.png' %}" alt="UMagellan logo" width="200" />
                     </a>
 
+                    <!-- Hot dog menu -->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+
                     <!-- Nav links -->
                     <div class="nav-collapse collapse">
                         <!-- User links -->
@@ -48,14 +55,12 @@
                                     {% if user %}
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ user.username }} <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <!--<li><a href="#">Account</a></li>-->
                                             <li><a href="{% url 'user_logout_page' %}">Logout</a></li>
                                         </ul>
                                     {% else %}
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, Guest <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="{% url 'user_login_page' %}">Login</a></li>
-                                            <!--<li><a href="{% url 'user_create_page' %}">Register</a></li>-->
                                         </ul>
                                     {% endif %}
                                 </li>

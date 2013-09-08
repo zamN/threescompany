@@ -83,15 +83,21 @@
                         Your changes have been saved!
                     </div>
                 </div>
+
                 <form id="user_home" action="{% url 'set_user_home' %}" method="post">
                     {% csrf_token %}
                     <div>
-                        <label for="home">Home</label>
+                        <label for="home">Start point</label>
                         <input type="hidden" class="user_curr_home" value="{{ user.profile.home }}">
-                        <select name="user_home" class="homes"></select>
+                        <select name="user_home" class="homes"></select> <br>
+                        <input type="submit" name="submit" value="Set start point" class="btn btn-primary" />
                     </div>
-                    <input type="submit" name="submit" value="Save" class="btn btn-primary" />
                 </form>
+
+                <div style="margin-bottom: 20px;">
+                    <p>Clear courses <strong>(cannot be undone!)</strong></p>
+                    <a href="{% url 'delete_all_courses' %}" class="btn btn-danger">Clear all courses</a>
+                </div>
             </div>
         </div>
     </div>

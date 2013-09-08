@@ -103,7 +103,7 @@ def add_course(request):
         section = "0" + section
       else:
         response_data['error'] = True
-        response_data['error_msg'] = 'That section ID is invalid!'
+        response_data['error_msg'] = 'Section ID is invalid!'
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
 
@@ -138,11 +138,14 @@ def add_course(request):
       c.section = section
 
       room = classes[i].find('span', {'class' : 'class-room'}).text
-      print room
-      if room != None and room == 'ONLINE':
-        response_data['error'] = True
-        response_data['error_msg'] = 'Cannot add online classes!'
-        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+      if room != None:
+        if room == 'ONLINE':
+          response_data['error'] = True
+          response_data['error_msg'] = 'Cannot add online classes!'
+          return HttpResponse(json.dumps(response_data), mimetype="application/json")
+        else:
+          c.room_number = room
 
       c.build_code = classes[i].find('span', {'class' : 'building-code'}).text
 
@@ -170,6 +173,7 @@ def add_course(request):
         course_info['name']         = c.name
         course_info['section']      = c.section
         course_info['build_code']   = c.build_code
+        course_info['room_number']  = c.room_number
         course_info['start_time']   = c.start_time.strftime("%H:%M")
         course_info['end_time']     = c.end_time.strftime("%H:%M")
         course_info['section_days'] = []
@@ -247,6 +251,7 @@ def fill_table(table, resp):
       course_info['name']         = r.name
       course_info['section']      = r.section
       course_info['build_code']   = r.build_code
+      course_info['room_number']  = r.room_number
       course_info['start_time']   = r.start_time.strftime("%H:%M")
       course_info['end_time']     = r.end_time.strftime("%H:%M")
       course_info['section_days'] = []

@@ -12,11 +12,11 @@ $(function() {
   var directionsService = new google.maps.DirectionsService(),
       directionsDisplay = new google.maps.DirectionsRenderer({ map: M.map });
 
-  function displayRoute(classes) {
+  function displayRoute(courses) {
     var request = {
-      origin: classes[0],
-      destination: classes[classes.length-1],
-      waypoints: classes.slice(1, -1).map(function(c) {
+      origin: courses[0],
+      destination: courses[courses.length-1],
+      waypoints: courses.slice(1, -1).map(function(c) {
         return { location: c }
       }),
       travelMode: google.maps.DirectionsTravelMode.WALKING
@@ -36,17 +36,19 @@ $(function() {
     return null;
   }
 
-  // Test data.
-  var myClasses = [
-    getCoordsBy('name_short', 'SYM'),
-    getCoordsBy('name_short', 'MCK'),
-    getCoordsBy('name_short', 'SSU'),
-    getCoordsBy('name_short', 'WIC'),
-    getCoordsBy('name_short', 'ARC'),
-    getCoordsBy('name_short', 'MTH')
-  ];
+  M.initRoutes = function(paneID) {
+      var courses = [];
+      $("#"+paneID+".tab-pane .course-row").each(function(i, course) {
+          courses.push(
+              getCoordsBy("name_short", $(course).attr("data-build_code"))
+          );
+      });
+      displayRoute(courses);
+  }
 
-  displayRoute(myClasses);
+  $(".nav-tabs a").mouseup(function() {
+      M.initRoutes($(this).attr("href").slice(1));
+  });
 
 });
 

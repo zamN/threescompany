@@ -25,21 +25,27 @@ $(function() {
                     $('#' + id + ' .error-field').show();
                 } else {
                     $.get('/static/templates/course_table_row.mustache', function(source) {
-                        console.log(source);
-                        var template = Handlebars.compile(source);
-                        data.courses.map(function(course) {
-                            console.log(template(course));
-                            $('.tab-pane.active')
-                                .children('table')
-                                .append(template(course));
-                        });
-                        remCourseEvents();
+                      addCoursesToHTML(data.courses);
                     });
-                    // Prevent default action
                     e.preventDefault();
                 }
             });
         }
+    }
+
+    function addCoursesToHTML(courses) {
+        $.get('/static/templates/course_table_row.mustache', function(source) {
+            var template = Handlebars.compile(source);
+            courses.map(function(course) {
+                course.section_days.map(function(day) {
+                  $('#'+day+".tab-pane")
+                      .children('table')
+                      .append(template(course));
+                });
+            });
+            remCourseEvents();
+            M.initRoutes($(".tab-pane.active").attr("id"));
+        });
     }
 
     function remCourseEvents() {
@@ -58,6 +64,10 @@ $(function() {
     Mousetrap.bind("enter", function(e) {
         if ($(".section-field").is(":focus"))
         saveCourse(e);
+    });
+
+    $.get('/get_courses', function(data) {
+      addCoursesToHTML(data.courses);
     });
 
     remCourseEvents();

@@ -1,4 +1,13 @@
-<tr>
+<tr class="course-row"
+    data-course="{{name}}"
+    data-section="{{section}}"
+    data-start_time="{{start_time}}"
+    data-end_time="{{end_time}}"
+    data-build_code="{{build_code}}"
+    data-section_days="{{section_days}}"
+    data-link="{{link}}"
+    data-tag="{{tag}}" >
+
     <td><a href="{{ link }}">{{ name }}</a></td>
     <td>
         {{#ifCond tag 'Discussion'}}

@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from UMagellan.views import index
+from UMagellan.views import index, UserCreate
 from django.contrib.auth.decorators import login_required
 
 # Uncomment the next two lines to enable the admin:
@@ -21,5 +21,5 @@ urlpatterns = patterns('',
     # User views
     url(r'^login/$', 'django_cas.views.login', name = 'user_login_page'),
     url(r'^logout/$', 'django_cas.views.logout', name = 'user_logout_page'),
-    url(r'^/user/create/$', index, name = 'user_create_page'),
+    url(r'^user/create/$', UserCreate, name = 'user_create_page'),
 )

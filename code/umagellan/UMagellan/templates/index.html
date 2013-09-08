@@ -29,6 +29,7 @@
             <li><a href="#W" data-toggle="tab">Wed</a></li>
             <li><a href="#Th" data-toggle="tab">Thu</a></li>
             <li><a href="#F" data-toggle="tab">Fri</a></li>
+            <li><a href="#settings" data-toggle="tab">Settings</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="M">
@@ -140,6 +141,17 @@
                         <i class="icon-ok-sign"></i>
                     </a>
                 </div>
+            </div>
+            <div class="tab-pane" id="settings">
+                <h3>Settings</h3>
+                <form action="{% url 'set_user_home' %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <label for="home">Home</label>
+                        <select name="building_code" class="homes"></select>
+                    </div>
+                    <input type="submit" name="submit" value="Save" class="btn btn-primary" />
+                </form>
             </div>
         </div>
     </div>

@@ -13,6 +13,7 @@ from UMagellan.models import Spot
 from dateutil import parser
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
+from models import UserProfile
 
 # views go here
 def index(request):
@@ -29,15 +30,20 @@ def index(request):
         {'courses': courses, 'routes': routes, 'spots': spots, 'user': user}, 
         context_instance = RequestContext(request))
 
-def SetHome(View):
+def SetHome(request):
     if request.method == 'POST':
         try:
             profile = UserProfile()
             building_code = request.POST['building_code']
+
+            print building_code
+
             user = request.user
             profile.save()
         except:
             pass
+
+    return render(request, 'index.html', None, context_instance = RequestContext(request))
         
 
 '''    

@@ -51,6 +51,9 @@ $(function() {
       M.initRoutes($(this).attr("href").slice(1));
   });
 
+  $.each(BUILDINGS, function(i, b) {
+    $('.homes').append('<option value="' + b.name_short + '">' + b.name_long + '</option>');
+  });
 
 });
 

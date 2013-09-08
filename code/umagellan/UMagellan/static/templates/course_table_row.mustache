@@ -10,6 +10,9 @@
 
     <td><a href="{{ link }}">{{ name }}</a></td>
     <td>
+        {{#ifCond tag ''}}
+            <span class="label label-info">Lec</span>
+        {{/ifCond}}
         {{#ifCond tag 'Discussion'}}
             <span class="label">Disc</span>
         {{/ifCond}}

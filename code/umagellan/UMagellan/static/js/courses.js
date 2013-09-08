@@ -71,8 +71,9 @@ $(function() {
         $(el).addClass("mousetrap");
     });
     Mousetrap.bind("enter", function(e) {
-        if ($(".section-field").is(":focus"))
-        saveCourse(e);
+        if ($(".name-field, .section-field").is(":focus")) {
+            saveCourse(e);
+        }
     });
 
     $.get('/get_courses', function(data, status) {

@@ -1,6 +1,7 @@
 window.M = {
     map: {},
-    markers: []
+    markers: [],
+    home: {}
 };
 
 $(function() {
@@ -32,7 +33,8 @@ $(function() {
       });
   }
 
-  function destroyMarkers() {
+  function resetMap() {
+      directionsDisplay.set("directions", null);
       M.markers.map(function(m) {
           m.setMap(null);
       });
@@ -40,6 +42,14 @@ $(function() {
   }
 
   function displayRoute(points) {
+    // If two points of the same location exist in a row, move one.
+    for (var i=0; (i+1) < points.length; i++) {
+      if ((points[i].ob === points[i+1].ob) &&
+          (points[i].cb === points[i+1].cb)) {
+        points[i+1].ob += (randomSign()*0.0001);
+        points[i+1].cb += (randomSign()*0.0001);
+      }
+    }
     var request = {
       origin: points[0],
       destination: points[points.length-1],
@@ -50,7 +60,7 @@ $(function() {
     };
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
-        destroyMarkers();
+        resetMap();
         directionsDisplay.setDirections(response);
         setMarkers(points);
       } else { alert ('Failed to route!'); }
@@ -79,7 +89,7 @@ $(function() {
 
       // Get the course coords.
       var points = [];
-      if ($(user_curr_home).val() !== "") {
+      if (M.home.val() !== "") {
           points.push(getCoordsBy("name_long", $(".homes option:selected").val()));
       }
       courses$.each(function(i, course) {
@@ -88,8 +98,7 @@ $(function() {
           );
       });
 
-      // Clear the map
-      directionsDisplay.set("directions", null);
+      resetMap();
       // If there are two or more courses, display their routes.
       if (points.length >= 2) {
           displayRoute(points);
@@ -104,9 +113,9 @@ $(function() {
       M.initRoutes($(this).attr("href").slice(1));
   });
 
-  var user_curr_home = $('.user_curr_home');
+  M.home = $('.user_curr_home');
   $.each(BUILDINGS, function(i, b) {
-      if(b.name_long == user_curr_home.val()) {
+      if(b.name_long == M.home.val()) {
         $('.homes').append('<option selected>' + b.name_long + '</option>');
       } else {
         $('.homes').append('<option >' + b.name_long + '</option>');
@@ -122,9 +131,14 @@ $(function() {
             data: $('#user_home').serialize(),
             success: function () {
                 $('.success-field').show();
+                M.home = $('.user_curr_home');
             }
         })
   });
 
 });
+
+function randomSign() {
+  return (Math.random() > 0.5) ? 1 : -1;
+}
 

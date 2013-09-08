@@ -41,7 +41,13 @@ $(function() {
       if (paneID === null || paneID === undefined)
           paneID = $(".tab-pane.active").attr("id");
       var courses = [];
-      $("#"+paneID+".tab-pane .course-row").each(function(i, course) {
+      var courses$ = $("#"+paneID+".tab-pane .course-row");
+      courses$.sort(function(a, b) {
+        var aTime = Date.parse('01/01/2011 '+$(a).attr("data-start_time")+':00');
+        var bTime = Date.parse('01/01/2011 '+$(b).attr("data-start_time")+':00');
+        return aTime > bTime;
+      });
+      courses$.each(function(i, course) {
           courses.push(
               getCoordsBy("name_short", $(course).attr("data-build_code"))
           );

@@ -1,3 +1,10 @@
+Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+  if(v1 === v2) {
+      return options.fn(this);
+    }
+  return options.inverse(this);
+});
+
 $(function() {
     $('.error-field').hide();
 
@@ -13,19 +20,21 @@ $(function() {
                 data: { course: course_name, section: course_sec }
             }).done(function(data) {
                 if(data.error == true) {
-                    $('#' + id + ' .error-field .alert').html('<button type="button" class="close" data-dismiss="alert">&times;</button>' + data.error_msg);
+                    $('#' + id + ' .error-field .alert').html(
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' + data.error_msg);
                     $('#' + id + ' .error-field').show();
                 } else {
-                    $("#course_template").Chevron("render", {
-                        name: course_name,
-                        sec: course_sec
-                    }, function(result) {
-                        $('.tab-pane.active')
-                        .children('table')
-                        .append(result);
+                    $.get('/static/templates/course_table_row.mustache', function(source) {
+                        console.log(source);
+                        var template = Handlebars.compile(source);
+                        data.courses.map(function(course) {
+                            console.log(template(course));
+                            $('.tab-pane.active')
+                                .children('table')
+                                .append(template(course));
+                        });
+                        remCourseEvents();
                     });
-
-                    remCourseEvents();
                     // Prevent default action
                     e.preventDefault();
                 }

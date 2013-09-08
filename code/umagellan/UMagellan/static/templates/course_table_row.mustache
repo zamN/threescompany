@@ -1,5 +1,14 @@
 <tr>
-    <td>{{ name }}</td>
-    <td>{{ sec }}</td>
-    <td width="10%"><a href="#" class="rem-course">&times;</a></td>
+    <td><a href="{{ link }}">{{ name }}</a></td>
+    <td>
+        {{#ifCond tag 'Discussion'}}
+            <span class="label">Disc</span>
+        {{/ifCond}}
+        {{#ifCond tag 'Lab'}}
+            <span class="label label-warning">Lab</span>
+        {{/ifCond}}
+    </td>
+    <td>{{section}}</td>
+    <td><a href="#" class="rem-course" course_id="{{id}}">&times;</a></td>
 </tr>
+

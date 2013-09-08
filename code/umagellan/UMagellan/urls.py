@@ -9,7 +9,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Load index page
     url(r'^$', index),
-    url(r'^derp', 'UMagellan.views.derp'),
 
     # Admin views
     url(r'^admin/', include(admin.site.urls)),

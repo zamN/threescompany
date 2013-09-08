@@ -90,7 +90,7 @@ def add_course(request):
         section = "0" + section
       else:
         response_data['error'] = True
-        response_data['error_msg'] = 'Section ID is Invalid!'
+        response_data['error_msg'] = 'That section ID is invalid!'
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
 
@@ -100,7 +100,7 @@ def add_course(request):
 
     if soup.find("div", {"class" : "no-courses-message"}) != None:
       response_data['error'] = True
-      response_data['error_msg'] = 'Course does not exist!'
+      response_data['error_msg'] = 'That course does not exist!'
       return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     course_container = soup.find("div", {"class" : "courses-container"})
@@ -108,7 +108,7 @@ def add_course(request):
 
     if first_block == None:
       response_data['error'] = True
-      response_data['error_msg'] = 'Course does not exist!'
+      response_data['error_msg'] = 'That course does not exist!'
       return HttpResponse(json.dumps(response_data), mimetype="application/json")
     else:
       class_block = first_block.find('div', {'class' : 'class-days-container'})
@@ -139,7 +139,7 @@ def add_course(request):
           c.save()
         else:
           response_data['error'] = True
-          response_data['error_msg'] = 'Course already exists!'
+          response_data['error_msg'] = 'That course already exists!'
           return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     response_data['error'] = False
@@ -157,19 +157,19 @@ def get_course(request):
         section = "0" + section
       else:
         response_data['error'] = True
-        response_data['error_msg'] = 'Section ID is Invalid!'
+        response_data['error_msg'] = 'That section ID is Invalid!'
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     try:
       resp = Course.objects.filter(name=course, section=section, user=User.objects.get(id = request.user.id))
     except ObjectDoesNotExist:
       response_data['error'] = True
-      response_data['error_msg'] = 'Username does not exist.'
+      response_data['error_msg'] = 'That username does not exist!'
       return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     if len(resp) == 0:
       response_data['error'] = True
-      response_data['error_msg'] = 'No results found for Course/Section'
+      response_data['error_msg'] = 'That class/section was not found!'
       return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
     response_data['courses'] = []

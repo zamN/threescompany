@@ -39,11 +39,19 @@ def derp(request):
     if soup.find("div", {"class" : "no-courses-message"}) == None:
       print 'derp'
 
+    x = Course()
+    x.department = request.user
+    x.number = 5
+    x.section = 123
+    x.building = csi
+    x.room = 1122
+    x.user = request.user
+    x.save()
+
     # returns:
     # all section($)
     # section times
     # building-code
-    # class-room
 
     # error = true
     # error_msg = blah blah

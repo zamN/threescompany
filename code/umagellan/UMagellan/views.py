@@ -120,7 +120,7 @@ def add_course(request):
     response_data['courses'] = []
     for i in range(0, len(classes)):
       c = Course()
-      c.name = course
+      c.name = course.upper()
       c.section = section
       c.build_code = classes[i].find('span', {'class' : 'building-code'}).text
 
@@ -144,7 +144,7 @@ def add_course(request):
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
       if Course.objects.filter(name=c.name, start_time=c.start_time, section_days=c.section_days, user=c.user).exists() != True:
         course_info = {}
-        course_info['name']         = c.name.upper()
+        course_info['name']         = c.name
         course_info['section']      = c.section
         course_info['build_code']   = c.build_code
         course_info['start_time']   = c.start_time.strftime("%H:%M")

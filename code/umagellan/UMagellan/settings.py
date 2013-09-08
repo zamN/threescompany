@@ -6,6 +6,8 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
+AUTH_PROFILE_MODULE = "UMagellan.UserProfile"
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )

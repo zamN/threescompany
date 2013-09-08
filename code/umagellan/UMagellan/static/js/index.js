@@ -21,6 +21,7 @@ $(function() {
   });
 
   function setMarkers(points) {
+      console.log(points);
       points.map(function(p, i) {
           M.markers.push(new google.maps.Marker({
               map: M.map,

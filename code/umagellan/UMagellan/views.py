@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, render

@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, unique=True)
+    home = models.CharField(max_length=56)
+    
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
+
 # represents a class
 class Course(models.Model):
     name = models.CharField(max_length=56)

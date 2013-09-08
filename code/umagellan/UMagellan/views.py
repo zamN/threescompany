@@ -37,7 +37,7 @@ class UserCreate(View):
             return HttpResponseRedirect('/success/')
 
         return render(request, self.template_name, {'form': form})
-        context_instance = RequestContext(request))
+        context_instance = RequestContext(request)
 
 def derp(request):
     course = request.GET.get('course')

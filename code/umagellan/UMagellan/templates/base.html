@@ -4,10 +4,13 @@
 
 <html lang="en">
     <head>
+        <!-- Page title -->
         <title>{% block title %}{% endblock %}</title>
 
+        <!-- Charset -->
         <meta charset="UTF-8" />
 
+        <!-- Viewport width -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!-- Bootstrap stylesheets -->
@@ -28,7 +31,11 @@
             <div class="navbar-inner">
                 <div class="container-fluid">
                     <!-- Brand name -->
+<<<<<<< HEAD
+                    <a class="brand" href="/">
+=======
                     <a class="brand" href="{% url 'home' %}">
+>>>>>>> 825006fcb460e4e20f5701865be1259662d9e408
                         <img src="{% static 'img/logo.png' %}" alt="UMagellan logo" width="200" />
                     </a>
 
